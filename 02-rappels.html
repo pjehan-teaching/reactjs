@@ -1,0 +1,109 @@
+<section id="rappels">
+
+
+    <section>
+        <h2>Rappels JavaScript</h2>
+    </section>
+
+
+    <section>
+        <h3>Caractéristiques générales</h3>
+        <ul>
+            <li>Dynamique</li>
+            <li>Faiblement typé</li>
+            <li>Prototypal</li>
+            <li>Respecte les normes ECMAScript</li>
+        </ul>
+    </section>
+
+   <section>
+        <h3>ECMAScript 2015 (ES6)</h3>
+        <ul>
+            <li>Déclaration de variables locales avec <code>let</code></li>
+            <li>Déclaration de constantes avec <code>const</code></li>
+            <li>Valeurs par défaut dans les paramètres des fonctions</li>
+            <li>Syntaxe simplifiée pour la création de fonctions anonymes (Fonction flechée)</li>
+            <li>Spread operator</li>
+            <li>Création de classes</li>
+            <li>Gestion de modules</li>
+            <li>Promises</li>
+        </ul>
+        <footer>
+            <a href="http://es6-features.org" class="info" target="_blank">Nouveautés ES6</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Fonction flechée</h3>
+        <p>La fonction flechée permet de simplifier l'écriture d'une fonction anonyme et permet également de ne <strong>pas changer de contexte</strong>.</p>
+
+        <pre><code class="language-javascript">var map = {
+    markers: [{ lat: 48.112206, lng: -1.682941 }, { lat: 48.112094, lng: -1.677261 }],
+    showLocations: function() {
+        var self = this; // Enregistrement du scope en cours
+        this.markers.forEach(function(m) {
+            console.log(m.lat, m.lng);
+        });
+    }
+};</code></pre>
+        <pre><code class="language-javascript">let map = {
+    markers: [{ lat: 48.112206, lng: -1.682941 }, { lat: 48.112094, lng: -1.677261 }],
+    showLocations: function() {
+        this.markers.forEach(m => console.log(m.lat, m.lng) );
+    }
+};</code></pre>
+    </section>
+
+    <section>
+        <h3>Spread operator</h3>
+        <p>Le spread operator "..." permet de décomposer un tableau ou une chaine de caractères.</p>
+        <pre><code class="language-javascript">let colors = ['red', 'orange', 'yellow']
+let rainbow = ['green', 'blue', 'pink', ...colors]</code></pre>
+    </section>
+
+    <section>
+        <h3>Classes</h3>
+        <p>Il est maintenant possible de déclarer des classes avec une syntaxe Orientée Objet.</p>
+        <pre><code class="language-javascript">class Map {
+    constructor() {
+        this.markers = [{ lat: 48.112206, lng: -1.682941 }, { lat: 48.112094, lng: -1.677261 }];
+    }
+    showLocations() {
+        this.markers.forEach(m => console.log(m.lat, m.lng) );
+    }
+}</code></pre>
+        <footer>
+            <a href="#" class="info" target="_blank">Supporte l'héritage avec le mot clé <code>extends</code></a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Gestion de modules</h3>
+        <p>L'import / export de module est maintenant disponible nativement.</p>
+        <pre><code class="language-javascript">// lib/map.js
+class Map { ... }
+class Marker { ... }
+
+// app.js
+import { Map, Marker } from 'lib/map'</code></pre>
+        <footer>
+            <a href="#" class="info" target="_blank"><code>export default</code> permet de définir un élément par défaut</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Promises</h3>
+        <p>Les promesses permettent de gérer l'éxécution de code asynchrone.</p>
+        <pre><code class="language-javascript">function timer() {
+    return new Promise(function(resolve, reject) {
+        setTimeout(() => resolve('ok'), 100);
+    });
+}
+
+timer().then(msg => console.log(msg));</code></pre>
+        <footer>
+            <a href="#" class="info" target="_blank"><code>catch</code> permet de récupérer le cas de <code>reject</code></a>
+        </footer>
+    </section>
+
+</section>

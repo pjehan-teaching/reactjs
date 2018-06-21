@@ -1,0 +1,126 @@
+<section id="components">
+    
+    <section>
+        <h2>Composants, props et state</h2>
+    </section>
+    
+    <section>
+        <h3>Réutiliser des composants</h3>
+        <p>Les composants peuvent-être des classes ou de simples fonctions. Il prennent des paramètres en entrée (props) et retournent des éléments React en sortie.</p>
+        <p>Nous pouvons donc créer un composant comme celui-ci :</p>
+<pre><code class="language-jsx">function MyComponent(props) {
+    const myStyle = {
+        backgroundColor: 'yellow',
+        color: props.color
+    };
+    return <strong style={myStyle}>{props.content}</strong>;
+}</code></pre>
+        <p>Puis l'utiliser de cette façon :</p>
+<pre><code class="language-jsx"><MyComponent color="red" content="Super !"/></code></pre>
+        <footer>
+            <a href="https://reactjs.org/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized" class="warning">Nos composants doivent commencer par une majuscule !</a>
+        </footer>
+    </section>
+    
+    <section>
+        <h3>Props vs State</h3>
+        <p>Dans l'exemple précédent, nous avons envoyé des paramètres à notre composant <code>MyComponent</code>. Ces paramètres sont appelés <strong>props</strong> et sont <strong>immutables</strong> (ils ne peuvent pas être modifiés) !</p>
+        <p>Si vous essayez de modifier les props d'un component, vous aurez alors l'erreur suivante :</p>
+        <div class="console-error">Uncaught TypeError: Cannot assign to read only property 'color' of object '#&lt;Object&gt;'</div>
+        <p>Pour modifier des valeurs dans un component, nous allons utiliser le <strong>state</strong>.</p>
+    </section>
+    
+    <section>
+        <h3>Modification du state</h3>
+        <p>Nous allons maintenant créer un composant qui affichera l'heure actualisée chaque seconde.</p>
+        <p>Pour cela, nous allons créer un nouveau composant <code>Clock</code> :</p>
+<pre><code class="language-jsx">class Clock extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { date: new Date() };
+    }
+    componentDidMount() {
+        this.timer = setInterval(() => this.setState({ date: new Date() }), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+    render() {
+        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+    }
+}</code></pre>
+    </section>
+    
+    <section>
+        <h3>Modification du state</h3>
+<pre class="line-numbers" data-line="2-5"><code class="language-jsx">class Clock extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { date: new Date() };
+    }
+    componentDidMount() {
+        this.timer = setInterval(() => this.setState({ date: new Date() }), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+    render() {
+        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+    }
+}</code></pre>
+        <p>Le constructeur permet de récupérer les propriétés (props) passées au composant. Ces propriétés sont ensuite envoyées au composant parent en utilisant la méthode <code>super()</code>.</p>
+        <p>Ensuite, le state du composant est définie et restera disponible via <code>this.state</code>.</p>
+    </section>
+    
+    <section>
+        <h3>Modification du state</h3>
+<pre class="line-numbers" data-line="6-11"><code class="language-jsx">class Clock extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { date: new Date() };
+    }
+    componentDidMount() {
+        this.timer = setInterval(() => this.setState({ date: new Date() }), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+    render() {
+        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+    }
+}</code></pre>
+        <p>Ensuite, la méthode <code>componentDidMount()</code> permettra de démarrer le timer une fois que le composant sera inséré dans le DOM.</p>
+        <p>La méthode <code>componentWillUnmount()</code> sera elle déclenchée lorsque l'élément sera retiré du DOM.</p>
+    </section>
+    
+    <section>
+        <h3>Modification du state</h3>
+<pre class="line-numbers" data-line="12-14"><code class="language-jsx">class Clock extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { date: new Date() };
+    }
+    componentDidMount() {
+        this.timer = setInterval(() => this.setState({ date: new Date() }), 1000);
+    }
+    componentWillUnmount() {
+        clearInterval(this.timer);
+    }
+    render() {
+        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+    }
+}</code></pre>
+        <p>Enfin, la méthode <code>render()</code> permet d'afficher le composant avec la date actuelle au format h:m:s.</p>
+    </section>
+    
+    <section>
+        <h3>Modification du DOM</h3>
+        <p>A chaque fois que le state d'un composant est modifié, la méthode <code>render()</code> est appelée.</p>
+        <p>Si vous observez à présent le DOM de votre page web, vous constaterez que le texte contenant la date et uniquement ce texte est mis à jour chaque seconde.</p>
+        <p>Même si l'ensemble du composant est mis à jour chaque seconde (via la méthode <code>render()</code>), le DOM virtuel de React permet de ne mettre à jour que le contenu ayant changé.</p>
+        <footer>
+            <a href="#" class="warning" style="font-size: 0.7em;">Hormis dans le constructeur, le state doit toujours être modifié avec la méthode <code>setState()</code></a>
+        </footer>
+    </section>
+    
+</section>
