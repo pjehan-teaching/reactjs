@@ -99,8 +99,23 @@ plugins: [ new webpack.HotModuleReplacementPlugin() ]</code></pre>
     You need to enable JavaScript to run this app.
 </noscript>
 <script src="../dist/bundle.js"></script></code></pre>
+    </section>
+
+    <section>
+        <h3>Nous pouvons maintenant commencer !</h3>
+        <p>Créer maintenant votre premier composant ReactJS :</p>
+        <pre><code class="language-jsx">import React, { Component} from "react";
+import "./App.css";
+
+class App extends Component{
+  render(){
+    return(<div className="App"><h1>Hello, World!</h1></div>);
+  }
+}
+
+export default App;</code></pre>
         <p>Puis un fichier index.js dans le dossier src pour charger l'app</p>
-<pre><code class="language-javascript">import React from "react";
+        <pre><code class="language-jsx">import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App.js";
 
@@ -114,7 +129,7 @@ ReactDOM.render(
         <h3>Démarrer l'application</h3>
         <p>Vous pouvez maintenant démarrer l'application avec la commande suivante :</p>
 <pre><code class="language-json">webpack-dev-server --mode development</code></pre>
-        <p>Vous pouvez également modifiez le fichier package.json pour ajouter les scripts ci-dessous :</p>
+        <p>Vous pouvez également modifier le fichier package.json pour ajouter les scripts ci-dessous :</p>
 <pre><code class="language-json">"scripts": {
     "start": "webpack-dev-server --mode development",
     "build": "webpack --mode development",

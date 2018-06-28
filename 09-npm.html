@@ -1,0 +1,66 @@
+<section id="npm">
+
+    <section>
+        <h2>Créer un package NPM</h2>
+    </section>
+
+    <section>
+        <h3>Projet</h3>
+        <p>Nous allons créer ensemble un dashboard permettant d'afficher différents widgets.</p>
+        <p>Les composants Dashboard et Widget sont déjà créés et vous allez maintenant créer des widgets spécifiques tel que :</p>
+        <ul>
+            <li>Afficher la météo (géolocalisation)</li>
+            <li>Horaire du prochain bus / métro (géolocalisation)</li>
+            <li>Flux d'actualités Facebook, Twitter, Instagram...</li>
+            <li>News</li>
+            <li>Résultats sportifs</li>
+            <li>...</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>NPM Link</h3>
+        <p>La commande <code class="language-bash">npm link</code> permet d'effectuer un lien symbolique entre deux packages installés localement.</p>
+        <p>Cela peut permettre de tester un package avant de le publier sur NPM :</p>
+        <pre><code class="language-bash">cd ./mon-package
+npm link
+cd ../mon-projet
+npm link mon-package
+</code></pre>
+        <p>Pour supprimer un lien symbolique :</p>
+        <pre><code class="language-bash">npm unlink mon-package</code></pre>
+        <footer>
+            <a href="https://docs.npmjs.com/cli/link" class="info" target="_blank">NPM Link</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Créer un widget</h3>
+        <p>Vous allez maintenant créer un widget qui sera compatible avec le package <a href="https://www.npmjs.com/package/react-realtime-dashboard" target="_blank">react-realtime-dashboard</a></p>
+        <div class="instructions">
+            <ol>
+                <li>Créez un projet test avec la commande <code class="language-bash">create-react-app</code></li>
+                <li>Créez un nouveau package avec la commande <code class="language-bash">npm init</code> (vous pouvez suivre <a href="https://medium.com/@BrodaNoel/how-to-create-a-react-component-and-publish-it-in-npm-668ad7d363ce" target="_blank">ce tutoriel</a> pour vous aider à configurer votre projet)</li>
+                <li>Développez votre composant React</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h3>Publier un package du NPM</h3>
+        <p>Une fois votre composant développé, vous pouvez maintenant le publier sur NPM :</p>
+        <div class="instructions">
+            <ol>
+                <li>Créez un compte sur le internet de NPM ou utilisez la commande <code class="language-bash">npm adduser</code></li>
+                <li>Identifiez-vous en utilisant la commande <code class="language-bash">npm login</code></li>
+                <li>Créez un fichier .npmignore et définissez les dossiers/fichiers qui ne seront pas envoyés sur NPM (si il n'y a pas de .npmignore, le .gitignore est utilisé)</li>
+                <li>Créez un fichier README.md</li>
+                <li>Publiez votre package avec la commande <code class="language-bash">npm publish</code></li>
+            </ol>
+        </div>
+        <footer>
+            <a href="https://docs.npmjs.com/getting-started/publishing-npm-packages#how-to-publish-a-package" class="info" target="_blank">Publier un package NPM</a>
+        </footer>
+    </section>
+
+</section>
