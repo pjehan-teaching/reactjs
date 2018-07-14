@@ -4,10 +4,86 @@
         <h2>Routeur</h2>
     </section>
 
-    <!-- exact -->
+    <section>
+        <h3>Administration des widgets</h3>
+        <p>Afin de pouvoir <strong>administrer les widgets</strong> affichés sur notre dashboard, nous allons créer une interface d'administration. Les données de cette interface et la partie backend seront gérés avec Parse Server.</p>
+        <p>L'interface d'administration nous permettra de <strong>créer des dashboards</strong> et d'ajouter, modifier ou supprimer des <strong>widgets</strong> sur chaque dashboard.</p>
+        <p>Il sera également possible de <strong>réagencer les widgets</strong> pour changer leur position ou leur taille.</p>
+    </section>
 
-    <!-- 404 -->
+    <section>
+        <h3>Wireframes</h3>
+    </section>
 
-    <!-- Switch -->
+    <section>
+        <h3>Installation</h3>
+        <p>Pour commencer, nous allons créer une nouvelle application :</p>
+        <pre><code class="language-bash">create-react-app dashboard-admin</code></pre>
+        <p>Afin de gérer les routes de notre application, nous allons installer le package react-router :</p>
+        <pre><code class="language-bash">npm install --save react-router react-router-dom</code></pre>
+    </section>
+
+    <section>
+        <h3>Router component</h3>
+        <p>Il existe plusieurs type de routeurs disponible dans React Router :</p>
+        <ul>
+            <li><strong>Router</strong> : Routeur bas niveau.</li>
+            <li><strong>BrowserRouter</strong> : Routeur utilisant l'API HTML5 du navigateur permettant de manipuler l'historique.</li>
+            <li><strong>HashRouter</strong> : Routeur utilisant la partie hash (#) de l'URL.</li>
+            <li><strong>MemoryRouter</strong> : Routeur conservant l'historique en mémoire (ne modifie par la barre d'URL).</li>
+            <li><strong>StaticRouter</strong> : Routeur statique ne permettant pas de changer d'URL (utile pour le server-side rendering).</li>
+            <li><strong>NativeRouter</strong> : Routeur pour ReactNative.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>Router component</h3>
+        <p>Nous allons utiliser le composant <code class="language-js">BrowserRouter</code> pour gérer les routes de notre application. Pour cela, il suffit d'englober le composant <code class="language-js">App</code> :</p>
+<pre><code class="language-jsx"><BrowserRouter><App /></BrowserRouter></code></pre>
+    </section>
+
+    <section>
+        <h3>Route component</h3>
+        <p>Le composant <code class="language-js">Route</code> permet d'associer une URL avec un composant. Si l'url en cours correspond à la route, le composant sera affiché.</p>
+        <p>Créez deux composant Login et Register puis ajoutez dans le fichier App.js les routes correspondantes :</p>
+<pre><code class="language-jsx"><div className="App">
+  <Route path='/' component={Login}/>
+  <Route path='/register' component={Register}/>
+</div></code></pre>
+    </section>
+
+    <section>
+        <h3>Route component</h3>
+        <p>Essayer de vous rendre sur l'URL "/", le composant Login devrait alors apparaître.</p>
+        <p>Essayer ensuite de vous rendre sur l'URL "/register". Le composant Register s'affiche alors mais le composant Login reste présent.</p>
+        <p>Cela se produit car la route "/register" contient bien la route "/" du composant Login. Pour corriger cette erreur, nous allons ajouter un attribut <code class="language-jsx">exact</code> sur la route du composant Login :</p>
+        <pre><code class="language-jsx"><Route exact path='/' component={Login}/></code></pre>
+    </section>
+
+    <section>
+        <h3>Switch component</h3>
+        <p>Parfois, nous voulons garantir qu'une seule route sera utiliser. Pour cela, il est possible de regrouper plusieurs routes dans un composant <code class="language-js">Switch</code>.</p>
+        <p>Nous pouvons par exemple l'utiliser dans notre application pour gérer les erreurs 404 :</p>
+<pre><code class="language-jsx"><Switch>
+  <Route exact path='/' component={Login}/>
+  <Route path='/register' component={Register}/>
+  <Route component={NotFound}/>
+</Switch></code></pre>
+    </section>
+
+    <section>
+        <h3>Link component</h3>
+        <p>Le composant <code class="language-js">Link</code> permet de générer un lien vers une route.</p>
+        <p>Le composant <code class="language-js">NavLink</code> est similaire mais permet également d'appliquer une classe au lien lorsque l'URL de la page en cours correspond à la route.</p>
+        <div class="instructions">
+            <ol>
+                <li>Ajouter une nouvelle route "/admin"</li>
+                <li>Affichez un lien vers cette route depuis le composant Login</li>
+                <li>Ajoutez sur le composant Admin une barre de navigation</li>
+                <li>Insérez dans cette barre de navigation deux liens vers les routes "/admin" et "/admin/profile"</li>
+                <li>Assurez-vous que les liens sont biens actifs en fonction de l'URL en cours</li>
+            </ol>
+        </div>
+    </section>
 
 </section>
