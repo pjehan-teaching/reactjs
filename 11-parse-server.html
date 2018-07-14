@@ -1,0 +1,173 @@
+<section id="parse-server">
+
+    <section>
+        <h2>Parse Server</h2>
+    </section>
+
+    <section>
+        <h3>Backend as a service (BaaS)</h3>
+        <p>Service cloud permettant de gérer la partie backend d'une application web ou mobile.</p>
+        <ul>
+            <li>Hébergement de la base de données</li>
+            <li>API</li>
+            <li>SDK</li>
+            <li>Gestion des utilisateurs (authentification)</li>
+            <li>Notification push</li>
+            <li>Hebergement de fichiers</li>
+            <li>Cloud functions</li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>Solutions existantes</h3>
+        <div class="container">
+            <div class="col">
+                <h4>Parse server<br>(<del>Facebook</del>)</h4>
+                <img src="assets/images/parse-server.png" alt="Parse Server">
+            </div>
+            <div class="col">
+                <h4>Firebase<br>(Google)</h4>
+                <img src="assets/images/firebase.png" alt="Firebase">
+            </div>
+            <div class="col">
+                <h4>Azure<br>(Microsoft)</h4>
+                <img src="assets/images/azure.png" alt="Azure">
+            </div>
+            <div class="col">
+                <h4>AWS<br>(Amazon)</h4>
+                <img src="assets/images/aws.png" alt="AWS">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Installation</h3>
+        <p>Il est possible d'installer Parse Server en téléchargeant le projet depuis <a href="https://github.com/parse-community/parse-server-example">Github</a>.</p>
+        <p>Il est également possible de l'installer en utilisant NPM :</p>
+        <pre><code class="language-bash">npm install -g parse-server</code></pre>
+        <p>Il faut ensuite démarrer un serveur mongodb pour la gestion des données :</p>
+        <pre><code class="language-bash">mongod</code></pre>
+        <p>Ensuite, vous pouvez démarrer le serveur avec la commande suivante :</p>
+        <pre><code class="language-bash">parse-server --appId APPLICATION_ID --masterKey MASTER_KEY --databaseURI mongodb://localhost/chat</code></pre>
+        <footer>
+            <a href="https://docs.parseplatform.org/parse-server/guide" target="_blank" class="info">Documentation Parse Server</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>SDK JavaScript</h3>
+        <p>Pour tester Parse Server et son SDK, nous allons créer un chat avec ReactJS :</p>
+        <pre><code class="language-bash">create-react-app chat</code></pre>
+        <p>Puis nous allons ensuite récupérer le SDK depuis les serveurs NPM :</p>
+        <pre><code class="language-bash">npm install --save parse</code></pre>
+        <footer>
+            <a href="https://docs.parseplatform.org/js/guide" target="_blank" class="info">Documentation SDK</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Connexion au serveur</h3>
+        <p>Pour se connecter au serveur Parse, ajouter les lignes suivantes dans le fichier index.js :</p>
+<pre><code class="language-js">import Parse from 'parse';
+
+Parse.initialize('APPLICATION_ID');
+Parse.serverURL = 'http://localhost:1337/parse';</code></pre>
+    </section>
+
+    <section>
+        <h3>Création d'une classe</h3>
+        <p>Nous allons maintenant créer une classe qui étendra <code class="language-js">Parse.Object</code> pour gérer les messages de notre application.</p>
+        <p>Créez un nouveau fichier Message.js :</p>
+<pre><code class="language-js">import Parse from 'parse';
+
+class Message extends Parse.Object {
+
+  constructor() {
+    super('Message');// Envoyer le nom de la classe au constructeur parent
+  }
+
+}
+
+// Permettra de récupérer des objets Message dans nos futurs requêtes
+Parse.Object.registerSubclass('Message', Message);
+
+export default Message;</code></pre>
+    </section>
+
+    <section>
+        <h3>Insérer un message</h3>
+        <p>Vous pouvez maintenant insérer un nouveau message en base de données en créant une nouvelle instance de la classe <code class="language-js">Message</code> :</p>
+<pre><code class="language-js">let msg = new Message();
+msg.save({content: "test"})
+  .then(data => console.log(data))
+  .catch(error => console.log(error));</code></pre>
+        <div class="instructions">
+            <ol>
+                <li>Créez un composant MessageForm</li>
+                <li>Créez un formulaire en JSX</li>
+                <li>Enregistrer la saisie en base de données</li>
+            </ol>
+        </div>
+    </section>
+
+    <section>
+        <h3>Récupérer des messages</h3>
+        <p>Pour récupérer les données, vous pouvez effectuer une requête :</p>
+<pre><code class="language-js">let query = new Parse.Query(Message);
+query.find().then(messages => this.setState({messages: messages}));</code></pre>
+      <div class="instructions">
+          <ol>
+              <li>Créez un composant MessageList</li>
+              <li>Affichez la liste des messages</li>
+          </ol>
+      </div>
+    </section>
+
+    <section>
+        <h3>Live Queries</h3>
+        <p>La liste des messages s'affiche correctement mais n'est pas mise à jour lorsqu'un utilisateur insère un nouveau message.</p>
+        <p>Parse Server dispose d'un système basé sur les WebSockets pour permettre de développer une application "real time" :</p>
+<pre><code class="language-js">let query = new Parse.Query(Message);
+let subscription = query.subscribe();
+subscription.on('create', (message) => {
+  console.log('object created: ' + message);
+});</code></pre>
+    <p>Vous devez également redémarre le serveur en ajoutant les paramètres suivants :</p>
+    <pre><code class="language-bash">-- startLiveQueryServer true --liveQuery '{"classNames": ["Message"]}'</code></pre>
+    </section>
+
+    <section>
+        <h3>Authentification</h3>
+        <p>Afin de permettre aux internautes de s'authentifier, Parse Server dispose d'une propriété Parse.User :</p>
+<pre><code class="language-js">// Créer un compte
+let user = new Parse.User();
+user.signUp({username: 'username', password: 'password', email: 'email'})
+    .then(user => console.log(user))
+    .catch(error => console.log(error));
+
+// S'identifier
+Parse.User.logIn('username', 'password')
+    .then(user => console.log(user))
+    .catch(error => console.log(error));
+
+// Récupérer l'utilisateur en cours
+const user = Parse.User.current();
+
+// Déconnecter l'utilisateur
+Parse.User.logOut();</code></pre>
+    </section>
+
+    <section>
+        <h3>Authentification</h3>
+        <div class="instructions">
+            <ol>
+                <li>Créez un formulaire de création de compte et de login</li>
+                <li>Affichez ces formulaires si l'utilisateur n'est pas authentifié</li>
+                <li>Gérez le système d'authentification</li>
+                <li>Affichez le nom de l'utilisateur ayant posté un message dans le chat</li>
+                <li>Ajoutez un bouton de déconnexion</li>
+            </ol>
+        </div>
+    </section>
+
+</section>
