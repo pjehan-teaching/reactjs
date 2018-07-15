@@ -12,7 +12,33 @@
     </section>
 
     <section>
-        <h3>Wireframes</h3>
+        <h3>Wireframes - Login</h3>
+        <img src="assets/images/login.png" alt="Login">
+    </section>
+
+    <section>
+        <h3>Wireframes - Register</h3>
+        <img src="assets/images/register.png" alt="Register">
+    </section>
+
+    <section>
+        <h3>Wireframes - Dashboards</h3>
+        <img src="assets/images/dashboards.png" alt="Dashboards">
+    </section>
+
+    <section>
+        <h3>Wireframes - Edit Dashboard</h3>
+        <img src="assets/images/edit-dashboard.png" alt="Edit Dashboard">
+    </section>
+
+    <section>
+        <h3>Wireframes - Add Widget</h3>
+        <img src="assets/images/add-widget.png" alt="Add Widget">
+    </section>
+
+    <section>
+        <h3>Wireframes - Edit Widget</h3>
+        <img src="assets/images/edit-widget.png" alt="Edit Widget">
     </section>
 
     <section>
@@ -34,6 +60,9 @@
             <li><strong>StaticRouter</strong> : Routeur statique ne permettant pas de changer d'URL (utile pour le server-side rendering).</li>
             <li><strong>NativeRouter</strong> : Routeur pour ReactNative.</li>
         </ul>
+        <footer>
+            <a href="https://reacttraining.com/react-router/" target="_blank" class="info">Documentation</a>
+        </footer>
     </section>
 
     <section>
@@ -50,14 +79,40 @@
   <Route path='/' component={Login}/>
   <Route path='/register' component={Register}/>
 </div></code></pre>
+        <footer>
+            <a href="#" class="info">Il existe également un attribut render pour plus de logique</a>
+        </footer>
     </section>
 
     <section>
         <h3>Route component</h3>
-        <p>Essayer de vous rendre sur l'URL "/", le composant Login devrait alors apparaître.</p>
-        <p>Essayer ensuite de vous rendre sur l'URL "/register". Le composant Register s'affiche alors mais le composant Login reste présent.</p>
+        <p>Essayez de vous rendre sur l'URL "/", le composant Login devrait alors apparaître.</p>
+        <p>Essayez ensuite de vous rendre sur l'URL "/register". Le composant Register s'affiche alors mais le composant Login reste présent.</p>
         <p>Cela se produit car la route "/register" contient bien la route "/" du composant Login. Pour corriger cette erreur, nous allons ajouter un attribut <code class="language-jsx">exact</code> sur la route du composant Login :</p>
         <pre><code class="language-jsx"><Route exact path='/' component={Login}/></code></pre>
+    </section>
+
+    <section>
+        <h3>Route props</h3>
+        <p>Lorsqu'un composant d'une route est appelé, des informations sont envoyées via ses props :</p>
+        <ul>
+            <li>match : Contient des informations sur la manière dont une route correspond à une URL. Cette propriété contient la liste des paramètres passés dans l'URL ainsi que des informations sur l'URL actuelle (utile pour construire des routes imbriquées).</li>
+            <li>location : Contient des informations sur l'URL en cours.</li>
+            <li>history : Package externe à React Router. Permet de rediriger manuellement l'internaute.</li>
+        </ul>
+        <footer>
+            <a href="https://github.com/ReactTraining/history" target="_blank" class="info">Documentation du package history</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Route params</h3>
+        <p>Il est possible de passer des paramètres aux routes pour ensuite pouvoir les récupérer dans l'object match :</p>
+<pre><code class="language-jsx"><Link to='/profile/pjehan'>Mon profil</Link>
+<Route path='/profile/:username' component={Profile}/>
+
+// Profile.jsx
+<h1>Modification du profil de {this.props.match.params.username}</h1></code></pre>
     </section>
 
     <section>
@@ -85,5 +140,20 @@
             </ol>
         </div>
     </section>
+
+    <section>
+        <h3>Redirect component</h3>
+        <p>Le composant <code class="language-js">Redirect</code> permet de rediriger l'internaute vers une route.</p>
+        <p>Ce composant peut-être utile pour rediriger l'utilisateur si celui-ci est authentifié :</p>
+        <pre><code class="language-jsx"><Route exact path="/" render={() => (
+  loggedIn ? (
+    <Redirect to="/dashboard"/>
+  ) : (
+    <PublicHomePage/>
+  )
+)}/></code></pre>
+    </section>
+
+    <!-- URL params -->
 
 </section>
