@@ -1,9 +1,9 @@
 <section id="components">
-    
+
     <section>
         <h2>Composants, props et state</h2>
     </section>
-    
+
     <section>
         <h3>Réutiliser des composants</h3>
         <p>Les composants peuvent-être des classes ou de simples fonctions. Il prennent des paramètres en entrée (props) et retournent des éléments React en sortie.</p>
@@ -21,7 +21,7 @@
             <a href="https://reactjs.org/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized" class="warning">Nos composants doivent commencer par une majuscule !</a>
         </footer>
     </section>
-    
+
     <section>
         <h3>Props vs State</h3>
         <p>Dans l'exemple précédent, nous avons envoyé des paramètres à notre composant <code>MyComponent</code>. Ces paramètres sont appelés <strong>props</strong> et sont <strong>immutables</strong> (ils ne peuvent pas être modifiés) !</p>
@@ -34,7 +34,7 @@
         <h3>Lifecycle</h3>
         <img src="assets/images/lifecycle.png" alt="Lifecycle">
     </section>
-    
+
     <section>
         <h3>Modification du state</h3>
         <p>Nous allons maintenant créer un composant qui affichera l'heure actualisée chaque seconde.</p>
@@ -55,7 +55,7 @@
     }
 }</code></pre>
     </section>
-    
+
     <section>
         <h3>Modification du state</h3>
 <pre class="line-numbers" data-line="2-5"><code class="language-jsx">class Clock extends Component {
@@ -76,7 +76,7 @@
         <p>Le constructeur permet de récupérer les propriétés (props) passées au composant. Ces propriétés sont ensuite envoyées au composant parent en utilisant la méthode <code>super()</code>.</p>
         <p>Ensuite, le state du composant est définie et restera disponible via <code>this.state</code>.</p>
     </section>
-    
+
     <section>
         <h3>Modification du state</h3>
 <pre class="line-numbers" data-line="6-11"><code class="language-jsx">class Clock extends Component {
@@ -97,7 +97,7 @@
         <p>Ensuite, la méthode <code>componentDidMount()</code> permettra de démarrer le timer une fois que le composant sera inséré dans le DOM.</p>
         <p>La méthode <code>componentWillUnmount()</code> sera elle déclenchée lorsque l'élément sera retiré du DOM.</p>
     </section>
-    
+
     <section>
         <h3>Modification du state</h3>
 <pre class="line-numbers" data-line="12-14"><code class="language-jsx">class Clock extends Component {
@@ -117,7 +117,7 @@
 }</code></pre>
         <p>Enfin, la méthode <code>render()</code> permet d'afficher le composant avec la date actuelle au format h:m:s.</p>
     </section>
-    
+
     <section>
         <h3>Modification du DOM</h3>
         <p>A chaque fois que le state d'un composant est modifié, la méthode <code>render()</code> est appelée.</p>
@@ -131,7 +131,7 @@
     <section>
         <h3>Data Flow</h3>
         <p>Afin de permettre une communication transversale entre les composants, il est possible de remonter des événements en déclenchant des fonctions passées aux composants via les <code>props</code>.</p>
-        <img src="assets/images/data_flow.gif" alt="ReactJS Data Flow">
+        <img src="assets/images/data-flow.gif" alt="ReactJS Data Flow">
     </section>
-    
+
 </section>

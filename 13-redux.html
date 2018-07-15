@@ -1,0 +1,63 @@
+<section id="redux">
+
+    <section>
+        <h2>Redux</h2>
+    </section>
+
+    <section>
+        <h3>Data flow</h3>
+        <p>La transmission des données entre les composants peut parfois être complexe.</p>
+        <p>Pour résoudre ce problème, Redux introduit un Store général qui sera en charge de dispatcher les données mises à jours aux composants les utilisant.</p>
+        <div class="container">
+            <div class="col">
+                <img src="assets/images/data-flow.gif" alt="Data flow">
+            </div>
+            <div class="col">
+                <img src="assets/images/redux-data-flow.gif" alt="Redux data flow">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Installation</h3>
+        <p>Pour pouvoir mettre en place Redux dans notre projet, nous allons récupérer 2 packages NPM :</p>
+        <pre><code class="language-bash">npm install -save redux react-redux</code></pre>
+    </section>
+
+    <section>
+        <h3>Actions</h3>
+        <p>Les Actions sont des informations envoyées au store sous forme d'objet JavaScript. Ces informations sont envoyées avec la fonction <code class="language-js">store.dispatch()</code></p>
+        <p>Nous allons créer un dossier "redux" contenant qui contiendra un fichier JavaScript avec l'ensemble de nos actions :</p>
+<pre><code class="language-js">// redux/actions.js
+
+export const USER_REGISTER = 'USER_REGISTER';
+export const USER_LOGIN = 'USER_LOGIN';
+
+export function userRegister(user) {
+    return {type: USER_REGISTER, paylod: {user: user}};
+}
+
+export function userLogin(user) {
+    return {type: USER_LOGIN, paylod: {user: user}};
+}</code></pre>
+        <footer>
+            <a href="https://github.com/redux-utilities/flux-standard-action" target="_blank" class="info">Flux standard actions</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Reducers</h3>
+        <p>Les Reducers ont pour rôle de mettre à jour le state de l'application en fonction d'une action.</p>
+        <p>Les Reducers sont des fonctions pures prenant en entrée le state précédent et en sortie le state suivant.</p>
+    </section>
+
+    <section>
+        <h3>Store</h3>
+    </section>
+
+    <section>
+        <h3>Containers</h3>
+        <p></p>
+    </section>
+
+</section>
