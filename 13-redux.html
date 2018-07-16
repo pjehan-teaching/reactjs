@@ -21,7 +21,7 @@
     <section>
         <h3>Installation</h3>
         <p>Pour pouvoir mettre en place Redux dans notre projet, nous allons récupérer 2 packages NPM :</p>
-        <pre><code class="language-bash">npm install -save redux react-redux</code></pre>
+        <pre><code class="language-bash">npm install --save redux react-redux</code></pre>
     </section>
 
     <section>
@@ -52,7 +52,7 @@ export function dashboardRemove(dashboard) {
 <pre><code class="language-js">// reducers/dashboard.js
 import { DASHBOARD_ADD, DASHBOARD_REMOVE } from "../actions";
 
-const initialState = { items: [] };
+const initialState = { items: [] }; // Sera accessible via state.dashboard.items
 
 function dashboard(state = initialState, action) {
   switch (action.type) {

@@ -132,20 +132,20 @@ let subscription = query.subscribe();
 subscription.on('create', (message) => {
   console.log('object created: ' + message);
 });</code></pre>
-    <p>Vous devez également redémarre le serveur en ajoutant les paramètres suivants :</p>
+    <p>Vous devez également redémarrer le serveur en ajoutant les paramètres suivants :</p>
     <pre><code class="language-bash">-- startLiveQueryServer true --liveQuery '{"classNames": ["Message"]}'</code></pre>
     </section>
 
     <section>
         <h3>Authentification</h3>
-        <p>Afin de permettre aux internautes de s'authentifier, Parse Server dispose d'une propriété Parse.User :</p>
+        <p>Afin de permettre aux internautes de s'authentifier, Parse Server dispose d'un objet Parse.User :</p>
 <pre><code class="language-js">// Créer un compte
 let user = new Parse.User();
 user.signUp({username: 'username', password: 'password', email: 'email'})
     .then(user => console.log(user))
     .catch(error => console.log(error));
 
-// S'identifier
+// S'authentifier
 Parse.User.logIn('username', 'password')
     .then(user => console.log(user))
     .catch(error => console.log(error));
