@@ -26,19 +26,19 @@
 
     <section>
         <h3>Actions</h3>
-        <p>Les Actions sont des informations envoyées au store sous forme d'objet JavaScript. Ces informations sont envoyées avec la fonction <code class="language-js">store.dispatch()</code></p>
-        <p>Nous allons créer un dossier "redux" contenant qui contiendra un fichier JavaScript avec l'ensemble de nos actions :</p>
-<pre><code class="language-js">// redux/actions.js
+        <p>Les Actions sont des informations envoyées au store sous forme d'objet JavaScript.</p>
+        <p>Nous allons créer un fichier JavaScript avec l'ensemble de nos actions :</p>
+<pre><code class="language-js">// actions.js
 
-export const USER_REGISTER = 'USER_REGISTER';
-export const USER_LOGIN = 'USER_LOGIN';
+export const DASHBOARD_ADD = 'DASHBOARD_ADD';
+export const DASHBOARD_REMOVE = 'DASHBOARD_REMOVE';
 
-export function userRegister(user) {
-    return {type: USER_REGISTER, paylod: {user: user}};
+export function dashboardAdd(dashboard) {
+  return {type: DASHBOARD_ADD, payload: {dashboard: dashboard}};
 }
 
-export function userLogin(user) {
-    return {type: USER_LOGIN, paylod: {user: user}};
+export function dashboardRemove(dashboard) {
+  return {type: DASHBOARD_REMOVE, payload: {dashboard: dashboard}};
 }</code></pre>
         <footer>
             <a href="https://github.com/redux-utilities/flux-standard-action" target="_blank" class="info">Flux standard actions</a>
@@ -47,17 +47,187 @@ export function userLogin(user) {
 
     <section>
         <h3>Reducers</h3>
-        <p>Les Reducers ont pour rôle de mettre à jour le state de l'application en fonction d'une action.</p>
-        <p>Les Reducers sont des fonctions pures prenant en entrée le state précédent et en sortie le state suivant.</p>
+        <p>Les Reducers ont pour rôle de mettre à jour le state de l'application en fonction d'une action. Ce sont des fonctions pures prenant en entrée le state précédent et en sortie le state suivant.</p>
+        <p>Créez un fichier dashboard.js dans un dossier "reducers" :</p>
+<pre><code class="language-js">// reducers/dashboard.js
+import { DASHBOARD_ADD, DASHBOARD_REMOVE } from "../actions";
+
+const initialState = { items: [] };
+
+function dashboard(state = initialState, action) {
+  switch (action.type) {
+    case DASHBOARD_ADD:
+      return { items: [...state.items, action.payload.dashboard] };
+    case DASHBOARD_REMOVE:
+      return { items: state.items.filter(d => d !== action.payload.dashboard) };
+    default:
+      return state
+  }
+}
+
+export default dashboard;</code></pre>
+    </section>
+
+    <section>
+        <h3>Reducers</h3>
+        <p>Afin de pouvoir regrouper l'ensemble de nos Reducers, Redux dispose d'une fonction <code class="language-js">combineReducers()</code>.</p>
+        <p>Créez un fichier reducer.js et utilisez cette fonction pour combiner les Reducers :</p>
+<pre><code class="language-js">// reducer.js
+import { combineReducers } from 'redux';
+import dashboard from './reducers/dashboard';
+
+const dashboardApp = combineReducers({
+  dashboard
+});
+
+export default dashboardApp</code></pre>
+        <footer>
+            <a href="#" class="info" style="font-size: 0.7em;">Vous pourrez ajouter ensuite d'autres Reducers dans la fonction combineReducers()</a>
+        </footer>
     </section>
 
     <section>
         <h3>Store</h3>
+        <p>Le Store va stocker le state global de notre application.</p>
+        <p>Il dispose d'une fonction <code class="language-js">dispatch()</code> pour déclencher une action et d'une fonction <code class="language-js">subscribe()</code> pour s'abonner à une action.</p>
+        <p>Enfin, la fonction <code class="language-js">getState()</code> permet de récupérer le state en cours.</p>
+        <p>Afin de permettre un accès général au store de notre application, react-redux dispose d'un composant <code class="language-js"><Provider/></code>.</p>
+        <p>Modifiez le fichier index.js pour créer le store et le transmettre au Provider :</p>
+<pre><code class="language-jsx">import { createStore } from 'redux';
+import { Provider } from 'react-redux'
+import dashboardApp from './reducer';
+
+const store = createStore(dashboardApp);
+
+ReactDOM.render((<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>), document.getElementById('root'));</code></pre>
     </section>
 
     <section>
-        <h3>Containers</h3>
-        <p></p>
+        <h3>Container components</h3>
+        <p>Le package react-redux permet de simplifier l'utilisation de Redux dans ReactJS.</p>
+        <p>Nous n'aurons pas besoin d'utiliser les fonctions <code class="language-js">dispatch()</code>, <code class="language-js">subscribe()</code> et <code class="language-js">getState()</code> de l'objet store.</p>
+        <p>Nous allons créer des composants "Containers" qui permettront de faire un lien automatique avec des composants "Presentational".</p>
+    </section>
+
+    <section>
+        <h3>Container components</h3>
+        <p>Nous allons maintenant diviser nos composants en 2 composants :</p>
+        <ul>
+            <li>Presentational (Dumb) : Sera en charge de la partie graphique. Ce composant ne s'occupera pas du traitement des données (chargement ou modification) et les données ne seront pas stockées dans le state du composant.</li>
+            <li>Container (Smart) : Sera en charge de la partie logique. Ce composant transmet les données (state) et les actions (dispatch) aux composants Presentational. De plus, le composant sera automatiquement rechargé lorsque le state sera modifié (subscribe).</li>
+        </ul>
+        <p>Les données et les actions seront envoyées au composant Presentational respectivement via les fonctions <code class="language-js">mapStateToProps</code> et <code class="language-js">mapDispatchToProps</code>.</p>
+    </section>
+
+    <section>
+        <h3>Container components</h3>
+        <p>Créez un dossier "containers" et créez à l'intérieur un fichier Dashboards.js :</p>
+<pre><code class="language-jsx">// containers/Dashboards.js
+import { connect } from 'react-redux'
+import { dashboardAdd, dashboardRemove } from "../actions"
+import Dashboards from '../components/Dashboards'
+
+const mapStateToProps = state => ({dashboards: state.dashboard.items})
+
+const mapDispatchToProps = dispatch => ({
+  add: (dashboard) => dispatch(dashboardAdd(dashboard)),
+  remove: (dashboard) => dispatch(dashboardRemove(dashboard))
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboards)</code></pre>
+        <p>Nous allons maintenant utiliser le "Container component" dans le JSX.</p>
+        <footer>
+            <a href="#" class="info" style="font-size: 0.8em;">La fonction connect() est optimisée pour éviter les re-renders inutiles.</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>Presentational component</h3>
+        <p>Nous pouvons maintenant modifier notre composant Dashboards pour faire appel au state et aux actions :</p>
+<pre><code class="language-jsx">// components/Dashboards.js
+render() {
+
+    const items = this.props.dashboards.map((d, key) => (
+      <article key={key}>
+        <button>{d.title}</button>
+        <button onClick={(event) => this.props.remove(d)}>Remove</button>
+      </article>
+    ));
+
+    return (
+      <div>
+        <h2>Dashboards</h2>
+        <section>
+          {items}
+          <button onClick={(event) => this.props.add({title: 'ok'})}>Add</button>
+        </section>
+      </div>
+    );
+  }</code></pre>
+    </section>
+
+    <section>
+        <h3>Résumé</h3>
+        <div class="container">
+            <div class="col">
+                <p>Lorsque le "Container component" est appelé, il récupère une partie du State et certaines Actions pour les transmettres au "Presentational component".</p>
+                <p>Il s'abonne également automatiquement au State pour mettre à jour le "Presentational component" si nécessaire.</p>
+            </div>
+            <div class="col">
+                <img src="assets/images/redux-step-1.png" alt="Redux step 1">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Résumé</h3>
+        <div class="container">
+            <div class="col">
+                <p>Ensuite, lorsqu'un événement est déclenchée dans le composant, une des actions passées par le Container est appelée.</p>
+            </div>
+            <div class="col">
+                <img src="assets/images/redux-step-2.png" alt="Redux step 2">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Résumé</h3>
+        <div class="container">
+            <div class="col">
+                <p>Cette action est alors passées aux Reducers. Celui qui correspond à l'action sera alors déclenchée en prenant en entrée l'action et le state actuel.</p>
+            </div>
+            <div class="col">
+                <img src="assets/images/redux-step-3.png" alt="Redux step 3">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Résumé</h3>
+        <div class="container">
+            <div class="col">
+                <p>Le Reducer modifie alors le state pour ensuite le mettre à jour.</p>
+            </div>
+            <div class="col">
+                <img src="assets/images/redux-step-4.png" alt="Redux step 4">
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3>Résumé</h3>
+        <div class="container">
+            <div class="col">
+                <p>Une fois le state mis à jour, l'ensemble des composants abonnés sont alors automatiquement notifiés et leurs props seront alors mises à jour.</p>
+            </div>
+            <div class="col">
+                <img src="assets/images/redux-step-5.png" alt="Redux step 5">
+            </div>
+        </div>
     </section>
 
 </section>
