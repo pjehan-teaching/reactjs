@@ -230,4 +230,47 @@ render() {
         </div>
     </section>
 
+    <section>
+        <h3>Persistance des données</h3>
+        <p>Pour gérer la persistance des données, nous allons modifier nos actions. Nous allons commencer par créer 3 actions :</p>
+        <ul>
+            <li>DASHBOARD_ADD</li>
+            <li>DASHBOARD_ADD_SUCCESS</li>
+            <li>DASHBOARD_ADD_FAILURE</li>
+        </ul>
+        <p>Pour mettre en place cette architecture, nous allons avoir besoin de dispatcher manuellement certaines actions. Pour cela, nous allons installer le package redux-thunk :</p>
+        <pre><code class="language-bash">npm install --save redux-thunk</code></pre>
+    </section>
+
+    <section>
+        <h3>Persistance des données</h3>
+        <p>Maintenant, nous allons activer redux-thunk en l'ajoutant en tant que Middleware :</p>
+<pre><code class="language-js">// index.js
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+
+const store = createStore(dashboardApp, applyMiddleware(thunk));</code></pre>
+    </section>
+
+    <section>
+        <h3>Persistance des données</h3>
+        <p>Enfin, nous allons pouvoir modifier nos actions pour effectuer l'enregistrement en base de données :</p>
+<pre><code class="language-js">export function dashboardAdd(dashboard) {
+  let newDashboard = new Dashboard();
+  return (dispatch) => newDashboard.save(dashboard).then(
+    d => dispatch(dashboardAddSuccess(d)),
+    error => dispatch(dashboardAddError(error))
+  )
+}
+
+export function dashboardAddSuccess(dashboard) {
+  return {type: DASHBOARD_ADD_SUCCESS, payload: {dashboard: dashboard}};
+}
+
+export function dashboardAddError(error) {
+  return {type: DASHBOARD_ADD_ERROR, payload: error, error: true};
+}</code></pre>
+        <p>Il faut également modifier les Reducers pour gérer les actions DASHBOARD_ADD_SUCCESS et DASHBOARD_ADD_ERROR.</p>
+    </section>
+
 </section>
