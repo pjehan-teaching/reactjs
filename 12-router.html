@@ -68,17 +68,17 @@
     <section>
         <h3>Router component</h3>
         <p>Nous allons utiliser le composant <code class="language-js">BrowserRouter</code> pour gérer les routes de notre application. Pour cela, il suffit d'englober le composant <code class="language-js">App</code> :</p>
-<pre><code class="language-jsx"><BrowserRouter><App /></BrowserRouter></code></pre>
+<pre><code class="language-jsx">&lt;BrowserRouter&gt;&lt;App /&gt;&lt;/BrowserRouter&gt;</code></pre>
     </section>
 
     <section>
         <h3>Route component</h3>
         <p>Le composant <code class="language-js">Route</code> permet d'associer une URL avec un composant. Si l'url en cours correspond à la route, le composant sera affiché.</p>
         <p>Créez deux composant Login et Register puis ajoutez dans le fichier App.js les routes correspondantes :</p>
-<pre><code class="language-jsx"><div className="App">
-  <Route path='/' component={Login}/>
-  <Route path='/register' component={Register}/>
-</div></code></pre>
+<pre><code class="language-jsx">&lt;div className="App"&gt;
+  &lt;Route path='/' component={Login}/&gt;
+  &lt;Route path='/register' component={Register}/&gt;
+&lt;/div&gt;</code></pre>
         <footer>
             <a href="#" class="info">Il existe également un attribut render pour plus de logique</a>
         </footer>
@@ -89,7 +89,7 @@
         <p>Essayez de vous rendre sur l'URL "/", le composant Login devrait alors apparaître.</p>
         <p>Essayez ensuite de vous rendre sur l'URL "/register". Le composant Register s'affiche alors mais le composant Login reste présent.</p>
         <p>Cela se produit car la route "/register" contient bien la route "/" du composant Login. Pour corriger cette erreur, nous allons ajouter un attribut <code class="language-jsx">exact</code> sur la route du composant Login :</p>
-        <pre><code class="language-jsx"><Route exact path='/' component={Login}/></code></pre>
+        <pre><code class="language-jsx">&lt;Route exact path='/' component={Login}/&gt;</code></pre>
     </section>
 
     <section>
@@ -108,22 +108,22 @@
     <section>
         <h3>Route params</h3>
         <p>Il est possible de passer des paramètres aux routes pour ensuite pouvoir les récupérer dans l'object match :</p>
-<pre><code class="language-jsx"><Link to='/profile/pjehan'>Mon profil</Link>
-<Route path='/profile/:username' component={Profile}/>
+<pre><code class="language-jsx">&lt;Link to='/profile/pjehan'&gt;Mon profil&lt;/Link&gt;
+&lt;Route path='/profile/:username' component={Profile}/&gt;
 
 // Profile.jsx
-<h1>Modification du profil de {this.props.match.params.username}</h1></code></pre>
+&lt;h1&gt;Modification du profil de {this.props.match.params.username}&lt;/h1&gt;</code></pre>
     </section>
 
     <section>
         <h3>Switch component</h3>
         <p>Parfois, nous voulons garantir qu'une seule route sera utilisée. Pour cela, il est possible de regrouper plusieurs routes dans un composant <code class="language-js">Switch</code>.</p>
         <p>Nous pouvons par exemple l'utiliser dans notre application pour gérer les erreurs 404 :</p>
-<pre><code class="language-jsx"><Switch>
-  <Route exact path='/' component={Login}/>
-  <Route path='/register' component={Register}/>
-  <Route component={NotFound}/>
-</Switch></code></pre>
+<pre><code class="language-jsx">&lt;Switch&gt;
+  &lt;Route exact path='/' component={Login}/&gt;
+  &lt;Route path='/register' component={Register}/&gt;
+  &lt;Route component={NotFound}/>
+&lt;/Switch&gt;</code></pre>
     </section>
 
     <section>
@@ -145,13 +145,13 @@
         <h3>Redirect component</h3>
         <p>Le composant <code class="language-js">Redirect</code> permet de rediriger l'internaute vers une route.</p>
         <p>Ce composant peut-être utile pour rediriger l'utilisateur si celui-ci est authentifié :</p>
-        <pre><code class="language-jsx"><Route exact path="/" render={() => (
+        <pre><code class="language-jsx">&lt;Route exact path="/" render={() => (
   loggedIn ? (
-    <Redirect to="/dashboard"/>
+    &lt;Redirect to="/dashboard"/&gt;
   ) : (
-    <PublicHomePage/>
+    &lt;PublicHomePage/&gt;
   )
-)}/></code></pre>
+)}/&gt;</code></pre>
     </section>
 
     <!-- URL params -->

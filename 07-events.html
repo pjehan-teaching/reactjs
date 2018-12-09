@@ -7,8 +7,8 @@
     <section>
         <h3>Syntaxe</h3>
         <p>Comme pour les autres attributs, il faut utiliser la syntaxe <strong>camelCase</strong> pour gérer les événements :</p>
-        <pre><code class="language-jsx"><button onClick={this.handleClick}></button></code></pre>
-        <pre><code class="language-jsx"><form onSubmit={this.handleSubmit}></form></code></pre>
+        <pre><code class="language-jsx">&lt;button onClick={this.handleClick}&gt;&lt;/button&gt;</code></pre>
+        <pre><code class="language-jsx">&lt;form onSubmit={this.handleSubmit}&gt;&lt;/form&gt;</code></pre>
         <p>Les événements dans ReactJS sont encaspulés dans un wrapper <strong>SyntheticEvent</strong> qui permet d'assurer la compatibilité entre les différents navigateurs.</p>
         <footer>
             <a href="https://reactjs.org/docs/events.html" class="info" target="_blank">Liste des événements</a>
@@ -20,8 +20,8 @@
         <p>Dans l'exemple précédent, lorsque la fonction <code class="language-js">handleClick()</code> sera appelée, un changement de contexte sera effectué.</p>
         <p>Ainsi, il ne sera pas possible de modifier le state en appelant <code class="language-js">this.state()</code> car la variable <code class="language-js">this</code> aura pour valeur <code class="language-js">undefined</code>.</p>
         <p>Il faut alors effectuer un <strong>binding</strong> manuel directement lors de l'appel de la fonction :</p>
-        <pre><code class="language-jsx"><button onClick={this.handleClick.bind(this)}></button>
-<button onClick={e => this.handleChange(e)}></button> {/* Arrow function syntax */}</code></pre>
+        <pre><code class="language-jsx">&lt;button onClick={this.handleClick.bind(this)}&gt;&lt;/button&gt;
+&lt;button onClick={e => this.handleChange(e)}&gt;&lt;/button&gt; {/* Arrow function syntax */}</code></pre>
         <p>Ou bien effectuer un binding général dans le constructeur :</p>
         <pre><code class="language-js">this.handleClick = this.handleClick.bind(this);</code></pre>
     </section>

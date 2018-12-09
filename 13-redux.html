@@ -91,7 +91,7 @@ export default dashboardApp</code></pre>
         <p>Le Store va stocker le state global de notre application.</p>
         <p>Il dispose d'une fonction <code class="language-js">dispatch()</code> pour déclencher une action et d'une fonction <code class="language-js">subscribe()</code> pour s'abonner à une action.</p>
         <p>Enfin, la fonction <code class="language-js">getState()</code> permet de récupérer le state en cours.</p>
-        <p>Afin de permettre un accès général au store de notre application, react-redux dispose d'un composant <code class="language-js"><Provider/></code>.</p>
+        <p>Afin de permettre un accès général au store de notre application, react-redux dispose d'un composant <code class="language-js">&lt;Provider/&gt;</code>.</p>
         <p>Modifiez le fichier index.js pour créer le store et le transmettre au Provider :</p>
 <pre><code class="language-jsx">import { createStore } from 'redux';
 import { Provider } from 'react-redux'
@@ -99,7 +99,7 @@ import dashboardApp from './reducer';
 
 const store = createStore(dashboardApp);
 
-ReactDOM.render((<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>), document.getElementById('root'));</code></pre>
+ReactDOM.render((&lt;Provider store={store}&gt;&lt;BrowserRouter&gt;&lt;App /&gt;&lt;/BrowserRouter&gt;&lt;/Provider&gt;), document.getElementById('root'));</code></pre>
     </section>
 
     <section>
@@ -151,20 +151,20 @@ export default connect(
 render() {
 
     const items = this.props.dashboards.map((d, key) => (
-      <article key={key}>
-        <button>{d.title}</button>
-        <button onClick={(event) => this.props.remove(d)}>Remove</button>
-      </article>
+      &lt;article key={key}&gt;
+        &lt;button&gt;{d.title}&lt;/button&gt;
+        &lt;button onClick={(event) => this.props.remove(d)}>Remove&lt;/button&gt;
+      &lt;/article&gt;
     ));
 
     return (
-      <div>
-        <h2>Dashboards</h2>
-        <section>
+      &lt;div&gt;
+        &lt;h2>Dashboards&lt;/h2&gt;
+        &lt;section&gt;
           {items}
-          <button onClick={(event) => this.props.add({title: 'ok'})}>Add</button>
-        </section>
-      </div>
+          &lt;button onClick={(event) => this.props.add({title: 'ok'})}&gt;Add&lt;/button&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
     );
   }</code></pre>
     </section>

@@ -23,9 +23,9 @@
         <p>Ainsi, les deux exemples ci-dessous produiront le même résultat :</p>
         <article class="container">
             <div class="col">
-<pre><code class="language-jsx">return (<h1 className="hello">
+<pre><code class="language-jsx">return (&lt;h1 className="hello"&gt;
     Hello world!
-</h1>)</code></pre>
+&lt;/h1&gt;)</code></pre>
             </div>
             <div class="col">
 <pre><code class="language-javascript">return React.createElement(
@@ -47,9 +47,9 @@
 <pre><code class="language-jsx">render(){
     const username = 'Pierre';
     return(
-        <div className="App">
-            <h1> Hello, {username}! </h1>
-        </div>
+        &lt;div className="App"&gt;
+            &lt;h1&gt; Hello, {username}! &lt;/h1&gt;
+        &lt;/div&gt;
     );
 }</code></pre>
     </section>
@@ -59,11 +59,11 @@
         <p>Il est également possible de décomposer la construction du code JSX :</p>
 <pre><code class="language-jsx">const items = [1, 2, 3].map((key, val) => <li key={key}>{val}</li>);
 return(
-    <div className="App">
-        <ul>
+    &lt;div className="App"&gt;
+        &lt;ul&gt;
             {items}
-        </ul>
-    </div>
+        &lt;/ul&gt;
+    &lt;/div&gt;
 );</code></pre>
         <p>Il est nécessaire d'utiliser une <strong>key</strong> pour que ReactJS puisse identifier spécifiquement un élément. Si l'attribut <code>key</code> n'est pas renseigné, vous verrez alors l'erreur suivante apparaitre dans la console du navigateur :</p>
         <div class="console-error">Warning: Each child in an array or iterator should have a unique "key" prop.</div>
@@ -77,25 +77,10 @@ return(
         <p>Les attributs peuvent également contenir du code JavaScript :</p>
 <pre><code class="language-jsx">const theme = 'dark';
 return(
-    <div className={theme}> // sans les guillemets !!
-        <h1> Hello, {username}! </h1>
-    </div>
+    &lt;div className={theme}&gt; // sans les guillemets !!
+        &lt;h1&gt; Hello, {username}! &lt;/h1&gt;
+    &lt;/div&gt;
 );</code></pre>
     </section>
-
-    <!--
-    <section class="quiz">
-        <h3>Quiz</h3>
-        <form class="quiz-form">
-            <div class="quiz-options">
-                <input type="checkbox">
-                <label>test</label>
-                <input type="checkbox">
-                <label>test</label>
-            </div>
-            <input type="submit">
-        </form>
-    </section>
-    -->
 
 </section>

@@ -13,10 +13,10 @@
         backgroundColor: 'yellow',
         color: props.color
     };
-    return <strong style={myStyle}>{props.content}</strong>;
+    return &lt;strong style={myStyle}&gt;{props.content}&lt;/strong&gt;
 }</code></pre>
         <p>Puis l'utiliser de cette façon :</p>
-<pre><code class="language-jsx"><MyComponent color="red" content="Super !"/></code></pre>
+<pre><code class="language-jsx">&lt;MyComponent color="red" content="Super !"/&gt;</code></pre>
         <footer>
             <a href="https://reactjs.org/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized" class="warning">Nos composants doivent commencer par une majuscule !</a>
         </footer>
@@ -51,7 +51,7 @@
         clearInterval(this.timer);
     }
     render() {
-        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+        return &lt;div&gt;Il est { this.state.date.toLocaleTimeString() }&lt;/div&gt;
     }
 }</code></pre>
     </section>
@@ -70,7 +70,7 @@
         clearInterval(this.timer);
     }
     render() {
-        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+        return &lt;div&gt;Il est { this.state.date.toLocaleTimeString() }&lt;/div&gt;
     }
 }</code></pre>
         <p>Le constructeur permet de récupérer les propriétés (props) passées au composant. Ces propriétés sont ensuite envoyées au composant parent en utilisant la méthode <code>super()</code>.</p>
@@ -91,7 +91,7 @@
         clearInterval(this.timer);
     }
     render() {
-        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+        return &lt;div&gt;Il est { this.state.date.toLocaleTimeString() }&lt;/div&gt;
     }
 }</code></pre>
         <p>Ensuite, la méthode <code>componentDidMount()</code> permettra de démarrer le timer une fois que le composant sera inséré dans le DOM.</p>
@@ -112,7 +112,7 @@
         clearInterval(this.timer);
     }
     render() {
-        return <div>Il est { this.state.date.toLocaleTimeString() }</div>
+        return &lt;div&gt;Il est { this.state.date.toLocaleTimeString() }&lt;/div&gt;
     }
 }</code></pre>
         <p>Enfin, la méthode <code>render()</code> permet d'afficher le composant avec la date actuelle au format h:m:s.</p>
