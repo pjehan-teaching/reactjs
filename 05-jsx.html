@@ -57,7 +57,7 @@
     <section>
         <h3>Expressions JavaScript</h3>
         <p>Il est également possible de décomposer la construction du code JSX :</p>
-<pre><code class="language-jsx">const items = [1, 2, 3].map((key, val) => <li key={key}>{val}</li>);
+<pre><code class="language-jsx">const items = [1, 2, 3].map((val, key) => &lt;li key={key}&gt;{val}&lt;/li&gt;);
 return(
     &lt;div className="App"&gt;
         &lt;ul&gt;
