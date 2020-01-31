@@ -1,0 +1,17 @@
+.reveal {
+
+    pre[class*="language-"] {
+        width: 100%;
+        box-sizing: border-box;
+        font-size: 0.6em;
+        padding: 0.5em;
+        code {
+            padding: 0;
+        }
+    }
+
+    .console-error {
+        margin-bottom: 0.5em;
+    }
+
+}
