@@ -1,0 +1,26 @@
+.reveal {
+
+  section {
+    blockquote {
+      background-color: white;
+      border-left: #082b36 2px solid;
+      p {
+        &:before {
+          content: '💬';
+          float: right;
+          margin: 1rem;
+          color: #ccc;
+          font-size: 2em;
+        }
+      }
+      cite {
+        display: block;
+        color: #969696;
+        &:before {
+          content: '-';
+        }
+      }
+    }
+  }
+
+}
