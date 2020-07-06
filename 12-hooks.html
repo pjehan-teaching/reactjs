@@ -89,6 +89,9 @@ export default function Greeting(props) {
 		/&gt;
 	);
 }</code></pre>
+		<footer>
+			<a href="#" class="info"><code class="language-javascript">useEffect()</code> peut être appelé plusieurs fois</a>
+		</footer>
 	</section>
 
 	<section>
@@ -118,6 +121,32 @@ export default function Greeting(props) {
 		</ol>
 		<p>L'<strong>ordre d'appel des hooks doit obligatoirement être consistant</strong> entre chaque appel d'une fonction React.</p>
 		<footer><a href="https://reactjs.org/docs/hooks-rules.html" class="info" target="_blank">Hooks Rules</a></footer>
+	</section>
+
+	<section>
+		<h3>Customs Hooks</h3>
+		<p>Il est possible d'étendre les capacités de ReactJS en créant ses propres hooks.</p>
+		<p>Par convention, le nom des customs hooks doit commencer par <code>use</code></p>
+	</section>
+
+	<section>
+		<h3>Customs Hooks</h3>
+		<pre class="line-numbers"><code class="language-javascript">function useFormInput(initialValue) {
+	const [value, setValue] = useState(initialValue);
+	return {
+		value: value,
+		onChange: event => setValue(event.target.value)
+	};
+}</code></pre>
+		<pre class="line-numbers" data-line="4,7"><code class="language-jsx">import React, { useState } from "react";
+
+export default function Greeting(props) {
+	const firstname = useFormInput('John');
+
+	return (
+		&lt;input {...firstname}/&gt;
+	);
+}</code></pre>
 	</section>
 
 </section>
