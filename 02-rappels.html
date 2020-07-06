@@ -38,18 +38,20 @@
         <p>La fonction flechée permet de simplifier l'écriture d'une fonction anonyme et permet également de ne <strong>pas changer de contexte</strong>.</p>
 
         <pre><code class="language-javascript">var map = {
+    name: 'Google Map',
     markers: [{ lat: 48.112206, lng: -1.682941 }, { lat: 48.112094, lng: -1.677261 }],
     showLocations: function() {
         var self = this; // Enregistrement du scope en cours
         this.markers.forEach(function(m) {
-            console.log(m.lat, m.lng);
+            console.log(self.name, m.lat, m.lng);
         });
     }
 };</code></pre>
         <pre><code class="language-javascript">let map = {
+    name: 'Google Map',
     markers: [{ lat: 48.112206, lng: -1.682941 }, { lat: 48.112094, lng: -1.677261 }],
     showLocations: function() {
-        this.markers.forEach(m => console.log(m.lat, m.lng) );
+        this.markers.forEach(m => console.log(this.name, m.lat, m.lng) );
     }
 };</code></pre>
     </section>
@@ -81,8 +83,8 @@ let rainbow = ['green', 'blue', 'pink', ...colors]</code></pre>
         <h3>Gestion de modules</h3>
         <p>L'import / export de module est maintenant disponible nativement.</p>
         <pre><code class="language-javascript">// lib/map.js
-class Map { ... }
-class Marker { ... }
+export class Map { ... }
+export class Marker { ... }
 
 // app.js
 import { Map, Marker } from 'lib/map'</code></pre>
