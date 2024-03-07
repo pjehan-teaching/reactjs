@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "node_modules/.bin/webpack --mode=production",
-    "watch": "node_modules/.bin/webpack --mode=development --watch=true"
+    "watch": "node_modules/.bin/webpack --mode=development --watch"
   },
   "dependencies": {
     "@babel/core": "^7.24.0",
