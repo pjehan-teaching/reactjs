@@ -1,9 +1,9 @@
 <section id="installation">
-    
+
     <section>
         <h2>Installation</h2>
     </section>
-    
+
     <section>
         <h3>NPM</h3>
         <p>Utilisez NPM (Node Package Manager) pour installer les librairies JavaScript nécessaires.</p>
@@ -11,129 +11,39 @@
             <a href="https://nodejs.org" class="info" target="_blank">Installer NodeJS + NPM</a>
         </footer>
     </section>
-    
-    <section>
-        <h3>create-react-app</h3>
-        <p>create-react-app va nous permettre de générer un projet ReactJS pré-configuré (Webpack, Babel, ES6, JSX...).</p>
-<pre><code class="language-bash">npx create-react-app my-app</code></pre>
-    </section>
-    
-    <section>
-        <h3>Installation manuelle</h3>
-<pre><code class="language-bash">npm init
-npm install --save react react-dom</code></pre>
-    </section>
-    
-    <section>
-        <h3>Babel</h3>
-        <p>Babel est un compiler JavaScript permettant d'utiliser du code ES6 ou encore le langage JSX dans son code source.</p>
-<pre><code class="language-bash">npm install --save-dev babel-core babel-cli babel-preset-env babel-preset-react</code></pre>
-        <p>Les presets sont comme des plugins permettant d'effectuer des traitements sur le code compilé. Il faut ensuite les activer en créant un fichier <code>.babelrc</code> :</p>
-<pre><code class="language-json">{
-    "presets": ["env", "react"]
-}</code></pre>
-    </section>
-    
-    <section>
-        <h3>Webpack</h3>
-        <p>Webpack est un bundler permettant de traiter différents types de fichiers. Il permet, à l'aide de loaders, de compiler du code SCSS, redimentionner des images, vérifier la conformité du code...</p>
-<pre><code class="language-bash">npm install --save-dev webpack webpack-cli webpack-dev-server style-loader css-loader babel-loader</code></pre>
-        <p>Nous allons maintenant créer un fichier <code>webpack.config.js</code> pour déterminer les opérations qui seront déclenchées :</p>
-<pre><code class="language-javascript">const path = require("path");
-const webpack = require("webpack");
-const bundlePath = path.resolve(__dirname, "dist/");
 
-module.exports = {
-    entry: "./src/index.js"
-};</code></pre>
-        <p>Ici, nous définissions une constante <code>bundlePath</code> contenant le chemin vers le dossier de sortie ainsi qu'un point d'entrée : le fichier <code>index.js</code></p>
-    </section>
-    
     <section>
-        <h3>Webpack</h3>
-        <p>Nous allons maintenant ajouter plusieurs traitements à effectuer sur les fichiers .js, .jsx et .css :</p>
-<pre><code class="language-javascript">module: {
-    rules: [
-        {
-            test: /\.(js|jsx)$/,
-            exclude: /(node_modules|bower_components)/,
-            loader: 'babel-loader',
-            options: { presets: ['env'] }
-        },
-        {
-            test: /\.css$/,
-            use: [ 'style-loader', 'css-loader' ]
-        }
-    ]
-}</code></pre>
-    </section>
-    
-    <section>
-        <h3>Webpack</h3>
-        <p>Nous allons également ajouter un paramètre <code>resolve</code> qui nous permettra de charger des modules sans spécifier leur extension :</p>
-<pre><code class="language-javascript">resolve: { extensions: ['*', '.js', '.jsx'] }</code></pre>
-        <p>Nous devons aussi préciser le fichier d'output qui sera généré :</p>
-<pre><code class="language-javascript">output: {
-    publicPath: bundlePath,
-    filename: "bundle.js"
-}</code></pre>
-    </section>
-    
-    <section>
-        <h3>Webpack</h3>
-        <p>Enfin, nous allons utiliser webpack-dev-server pour afficher notre application dans le navigateur web et pouvoir bénéficier du live reloading :</p>
-<pre><code class="language-javascript">devServer: {
-    contentBase: path.join(__dirname,'public'),
-    port: 3000,
-    publicPath: "http://localhost:3000/dist"
-},
-plugins: [ new webpack.HotModuleReplacementPlugin() ]</code></pre>
-    </section>
-    
-    <section>
-        <h3>Nous pouvons maintenant commencer !</h3>
-        <p>Créez un fichier index.html dans le dossier public :</p>
-<pre><code class="language-html"><div id="root"></div>
-<noscript>
-    You need to enable JavaScript to run this app.
-</noscript>
-<script src="../dist/bundle.js"></script></code></pre>
+        <h3><del>create-react-app</del></h3>
+        <p>La commande <code>create-react-app</code> n'est plus recommandée pour créer un projet React.</p>
+        <p>
+            Elle n'est plus documentée dans la doc officielle et il est maintenant recommandé d'utiliser React avec un
+            framework tel que <a href="https://nextjs.org/" target="_blank">Next.js</a>
+            ou <a href="https://remix.run/" target="_blank">Remix</a>.
+        </p>
     </section>
 
     <section>
-        <h3>Nous pouvons maintenant commencer !</h3>
-        <p>Créer maintenant votre premier composant ReactJS :</p>
-        <pre><code class="language-jsx">import React, { Component} from "react";
-import "./App.css";
-
-class App extends Component{
-  render(){
-    return(<div className="App"><h1>Hello, World!</h1></div>);
-  }
-}
-
-export default App;</code></pre>
-        <p>Puis un fichier index.js dans le dossier src pour charger l'app</p>
-        <pre><code class="language-jsx">import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App.js";
-
-ReactDOM.render(
-    <App />,
-    document.getElementById("root")
-);</code></pre>
+        <h3>Installation avec Vite</h3>
+        <p>
+            Vite est un outil de build ultra-rapide pour les applications web modernes.
+            Il peut être utilisé pour créer des applications React.
+        </p>
+        <p>Pour créer un projet avec Vite, il suffit de lancer la commande suivante :</p>
+        <pre class="language-bash"><code>npm create vite@latest</code></pre>
+        <p>Il faut ensuite sélectionner l'option <mark>React</mark> puis <mark>JavaScript + SWC</mark></p>
+        <p>L'utilisation de TypeScript serait également intéressante, mais cela nécessite l'apprentissage de ce langage.</p>
     </section>
-    
+
     <section>
-        <h3>Démarrer l'application</h3>
-        <p>Vous pouvez maintenant démarrer l'application avec la commande suivante :</p>
-<pre><code class="language-json">webpack-dev-server --mode development</code></pre>
-        <p>Vous pouvez également modifier le fichier package.json pour ajouter les scripts ci-dessous :</p>
-<pre><code class="language-json">"scripts": {
-    "start": "webpack-dev-server --mode development",
-    "build": "webpack --mode development",
-    "test": "echo \"Error: no test specified\" && exit 1"
-}</code></pre>
+        <h3>Démarrer le serveur de développement</h3>
+        <p>
+            Une fois le projet créé, il suffit de se rendre dans le dossier du projet et de lancer la commande suivante
+            pour installer les dépendances :
+        </p>
+        <pre class="language-bash"><code>npm install</code></pre>
+        <p>Ensuite, pour démarrer le serveur de développement, il suffit de lancer la commande suivante :</p>
+        <pre class="language-bash"><code>npm run dev</code></pre>
+        <p>Vite inclus un système HMR (Hot Module Replacement) qui permet de voir les changements en temps réel.</p>
     </section>
-        
+
 </section>

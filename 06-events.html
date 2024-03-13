@@ -1,0 +1,79 @@
+<section id="events">
+
+    <section>
+        <h2>Les événements</h2>
+    </section>
+
+    <section>
+        <h3>Syntaxe</h3>
+        <p>Comme pour les autres attributs, il faut utiliser la syntaxe <strong>camelCase</strong> pour gérer les événements :</p>
+        <pre><code class="language-jsx">&lt;button onClick={handleClick}&gt;&lt;/button&gt;</code></pre>
+        <pre><code class="language-jsx">&lt;form onSubmit={handleSubmit}&gt;&lt;/form&gt;</code></pre>
+        <p>Les événements dans React sont encapsulés dans un wrapper <strong>SyntheticEvent</strong> qui permet d'assurer la compatibilité entre les différents navigateurs.</p>
+    </section>
+
+    <section>
+        <h3>Syntaxe</h3>
+        <p>Il est possible de passer des paramètres à une fonction lorsqu'un événement est déclenché :</p>
+        <pre><code class="language-jsx">&lt;button onClick={() => handleClick('param1', 'param2')}&gt;&lt;/button&gt;</code></pre>
+        <p>⚠️ Attention cependant à ne pas passer appeler la fonction directement :</p>
+        <pre><code class="language-jsx">&lt;button onClick={handleClick('param1', 'param2')}&gt;&lt;/button&gt; // appel immédiat de la fonction</code></pre>
+        <p>Il est également possible de passer l'événement lui-même :</p>
+        <pre><code class="language-jsx">&lt;button onClick={event => handleClick(event)}&gt;&lt;/button&gt;</code></pre>
+    </section>
+
+    <section>
+        <h3>Les formulaires</h3>
+        <p>Les formulaires en React fonctionnent de la même manière que les formulaires HTML classiques.</p>
+        <p>Il est possible de récupérer les valeurs des inputs grâce à l'événement <strong>onChange</strong> :</p>
+        <pre class="line-numbers"><code class="language-jsx">function handleChange(value) {
+    console.log(value);
+}
+return &lt;input type="text" onChange={event => handleChange(event.target.value)} /&gt;;</code></pre>
+    </section>
+
+    <section>
+        <h3>Les formulaires</h3>
+        <p>Il est également possible de gérer les formulaires avec un state :</p>
+        <pre class="line-numbers"><code class="language-jsx">const [value, setValue] = useState('');
+function handleChange(event) {
+    setValue(event.target.value);
+}
+return &lt;input type="text" value={value} onChange={handleChange} /&gt;;</code></pre>
+    </section>
+
+    <section>
+        <h3>Les formulaires</h3>
+        <p>Souvent, les données des formulaires sont stockées dans un objet :</p>
+        <pre class="line-numbers"><code class="language-jsx">const [form, setForm] = useState({ firstname: '', lastname: '' });
+function handleChange(event) {
+    setForm({ ...form, [event.target.name]: event.target.value });
+}
+return (
+    &lt;form&gt;
+        &lt;input type="text" name="firstname" value={form.firstname} onChange={handleChange} /&gt;
+        &lt;input type="text" name="lastname" value={form.lastname} onChange={handleChange} /&gt;
+    &lt;/form&gt;
+);</code></pre>
+        <p>
+            ⚠️ Il est important de copier l'objet <strong>form</strong> avant de le modifier pour ne pas perdre les autres valeurs.
+            C'est ce que permet de faire l'opérateur de décomposition <strong>...</strong> (spread operator).
+        </p>
+    </section>
+
+    <section>
+        <h3>Mise en pratique</h3>
+        <p>Nous allons maintenant ajouter dans notre application un nouveau composant <strong>ColorPicker</strong> qui nous permettra de changer la couleur de fond de l'application.</p>
+        <div class="instructions">
+            <ol>
+                <li>Créer un nouveau composant permettant d'afficher un input de type color</li>
+                <li>Identifier où sera situé le state</li>
+                <li>Utiliser les props pour remonter l'événement de changement de couleur</li>
+            </ol>
+        </div>
+        <footer>
+            <a href="https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components" class="info" style="font-size: 0.7em" target="_blank">Lorsque l'état d'un input est contrôlé par React, on parle de <strong>Controlled Component</strong></a>
+        </footer>
+    </section>
+
+</section>

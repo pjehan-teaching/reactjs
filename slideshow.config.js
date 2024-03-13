@@ -1,5 +1,5 @@
 module.exports = {
-  name: 'ReactJS',
+  name: 'React',
   stylesheets: [],
   javascripts: ['assets/js/script.js'],
   revealjs: {

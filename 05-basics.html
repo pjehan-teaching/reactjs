@@ -1,0 +1,224 @@
+<section id="basics">
+
+    <section>
+        <h2>Les bases de React</h2>
+        <ol>
+            <li>
+                <a href="#/components">Composants</a>
+            </li>
+            <li>
+                <a href="#/jsx">JSX</a>
+            </li>
+            <li>
+                <a href="#/props">Props</a>
+            </li>
+            <li>
+                <a href="#/state">State</a>
+            </li>
+            <li>
+                <a href="#/hooks">Hooks</a>
+            </li>
+        </ol>
+    </section>
+
+    <section id="components">
+        <h3>Composant</h3>
+        <p>Un composant est une fonction JavaScript qui retourne du code JSX.</p>
+        <p>Le JSX est semblable au HTML, mais se différencie par quelques points.</p>
+        <p>Voici un exemple de composant React très simple :</p>
+<pre class="line-numbers"><code class="language-jsx">// Button.jsx
+function Button() {
+    return &lt;button&gt;Click me!&lt;/button&gt;;
+}</code></pre>
+        <p>Il est ensuite possible d'utiliser ce composant depuis un autre composant :</p>
+<pre class="line-numbers"><code class="language-jsx">// App.jsx
+import Button from './Button';
+
+function App() {
+    return (
+        &lt;div&gt;
+            &lt;Button /&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+    </section>
+
+    <section>
+        <h3>Composant</h3>
+        <p>Quelques particularités concernant les composants React :</p>
+        <ul>
+            <li>Le nom des composants doit commencer par une <mark>majuscule</mark></li>
+            <li>Les composants peuvent être des <mark>fonctions</mark> ou <del>des classes</del> (l'utilisation de fonctions est <a href="https://react.dev/reference/react/Component" target="_blank">recommandée</a>)</li>
+            <li>Les composants peuvent être <mark>imbriqués</mark></li>
+            <li>Les composants peuvent recevoir des <mark>props</mark> (paramètres)</li>
+            <li>Les composants peuvent contenir des <mark>états</mark> (state)</li>
+        </ul>
+    </section>
+
+    <section id="jsx">
+        <h3>JavaScript XML (JSX)</h3>
+        <p>JSX est une extension de la syntaxe JavaScript qui permet d'écrire du code HTML directement dans du code JavaScript.</p>
+        <p>Quelques <mark>particularités</mark> :</p>
+        <ul>
+            <li>
+                Les attributs sont écrits en camelCase :<br>
+                <code class="language-jsx">&lt;div className="title"&gt;&lt;/div&gt;</code>
+            </li>
+            <li>
+                Les éléments doivent être fermés :<br>
+                <code class="language-jsx">&lt;br/&gt;</code>
+            </li>
+            <li>
+                Les expressions JavaScript sont incluses dans des accolades :<br>
+                <code class="language-jsx">&lt;h1&gt;Hello, {username}!&lt;/h1&gt;</code>
+            </li>
+        </ul>
+        <p>Certains <mark>attributs sont nommés différemment</mark> par rapport à HTML :</p>
+        <ul>
+            <li><code class="language-html">class</code> devient <code class="language-jsx">className</code></li>
+            <li><code class="language-html">for</code> devient <code class="language-jsx">htmlFor</code></li>
+        </ul>
+    </section>
+
+    <section>
+        <h3>JSX - JSX vs Plain JavaScript</h3>
+        <p>Lors de la compilation, Babel convertit le code JSX en code JavaScript.</p>
+        <p>Ainsi, les deux exemples ci-dessous produiront le même résultat :</p>
+        <article class="container">
+            <div class="col">
+<pre class="line-numbers"><code class="language-jsx">return (
+    &lt;h1 className="hello"&gt;
+        Hello world!
+    &lt;/h1&gt;
+)</code></pre>
+            </div>
+            <div class="col">
+<pre class="line-numbers"><code class="language-javascript">return React.createElement(
+    'h1',
+    {className: 'hello'},
+    'Hello, world!'
+)</code></pre>
+            </div>
+        </article>
+        <p>À partir de ces éléments, React peut ensuite générer le DOM correspondant.</p>
+        <footer>
+            <a href="#" class="warning">Les attributs sont écrit en camelCase !</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>JSX - Variables JavaScript</h3>
+        <p>Du code JavaScript peut être inclus dans du code JSX en utilisant des accolades :</p>
+<pre class="line-numbers"><code class="language-jsx">render(){
+    const username = 'John';
+    return(
+        &lt;div className="App"&gt;
+            &lt;h1&gt;Hello, {username}!&lt;/h1&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+    </section>
+
+    <section>
+        <h3>JSX - Expressions JavaScript</h3>
+        <p>Il est également possible d'afficher des listes :</p>
+<pre class="line-numbers"><code class="language-jsx">const items = [1, 2, 3].map((val, key) => &lt;li key={key}&gt;{val}&lt;/li&gt;);
+return(
+    &lt;div className="App"&gt;
+        &lt;ul&gt;
+            {items}
+        &lt;/ul&gt;
+    &lt;/div&gt;
+);</code></pre>
+        <p>Il est nécessaire d'utiliser une <strong>key</strong> pour que React puisse identifier spécifiquement un élément. Si l'attribut <code>key</code> n'est pas renseigné, vous verrez alors l'erreur suivante apparaitre dans la console du navigateur :</p>
+        <div class="console-error">Warning: Each child in a list should have a unique "key" prop.</div>
+        <footer>
+            <a href="https://react.dev/learn/rendering-lists" class="info" target="_blank">React listes et clés</a>
+        </footer>
+    </section>
+
+    <section>
+        <h3>JSX - Attributs</h3>
+        <p>Les attributs peuvent également contenir du code JavaScript :</p>
+<pre class="line-numbers"><code class="language-jsx">const theme = 'dark';
+return(
+    &lt;div className={theme}&gt; // sans les guillemets !!
+        &lt;h1&gt; Hello, {username}! &lt;/h1&gt;
+    &lt;/div&gt;
+);</code></pre>
+    </section>
+
+    <section id="props">
+        <h3>Props</h3>
+        <p>Les <mark>props</mark> (propriétés) sont des paramètres passés à un composant.</p>
+        <p>Voici un exemple de composant qui reçoit des props :</p>
+<pre class="line-numbers"><code class="language-jsx">function Welcome(props) {
+    return &lt;h1&gt;Hello, {props.name}!&lt;/h1&gt;;
+}</code></pre>
+        <p>Il est ensuite possible d'utiliser ce composant en lui passant des props :</p>
+<pre><code class="language-jsx">&lt;Welcome name="John" /&gt;</code></pre>
+        <p>Les props sont <mark>immuables</mark> (read-only).</p>
+    </section>
+
+    <section>
+        <h3>Props - Children</h3>
+        <p>Il est possible de passer des <mark>enfants</mark> à un composant :</p>
+<pre><code class="language-jsx">&lt;Welcome&gt;Hello, John!&lt;/Welcome&gt;</code></pre>
+        <p>Le contenu entre les balises du composant est accessible via <code class="language-js">props.children</code>.</p>
+    </section>
+
+    <section>
+        <h3>Props - Destructuring</h3>
+        <p>Il est possible de <mark>déstructurer</mark> les props :</p>
+<pre class="line-numbers"><code class="language-jsx">function Welcome({name}) {
+    return &lt;h1&gt;Hello, {name}!&lt;/h1&gt;;
+}</code></pre>
+        <p>Cela permet de simplifier l'écriture du composant :</p>
+<pre><code class="language-jsx">&lt;Welcome name="John" /&gt;</code></pre>
+        <footer>
+            <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank" class="info">
+                Le destructuring est une fonctionnalité native de JavaScript
+            </a>
+        </footer>
+    </section>
+
+    <section id="state">
+        <h3>State</h3>
+        <p>Le <mark>state</mark> est un objet qui contient des données qui peuvent changer au cours du temps.</p>
+        <p>Voici un exemple de composant qui utilise le state :</p>
+<pre class="line-numbers"><code class="language-jsx">function Clock() {
+    const [date, setDate] = useState(new Date());
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Il est {date.toLocaleTimeString()}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+        <p>Le state est <mark>immuable</mark> (read-only).</p>
+    </section>
+
+    <section>
+        <h3>State - Mise à jour</h3>
+        <p>Il est possible de mettre à jour le state en utilisant la fonction retournée par <code class="language-js">useState()</code> :</p>
+<pre class="line-numbers"><code class="language-jsx">function Clock() {
+    const [date, setDate] = useState(new Date());
+    useEffect(() => {
+        const timer = setInterval(() => setDate(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+    return (
+        &lt;div&gt;
+            &lt;p&gt;Il est {date.toLocaleTimeString()}&lt;/p&gt;
+        &lt;/div&gt;
+    );
+}</code></pre>
+    </section>
+
+    <section id="hooks">
+        <h3>Les Hooks</h3>
+        <p>Les <mark>hooks</mark> sont des fonctions qui permettent d'ajouter des fonctionnalités à un composant.</p>
+        <p>Dans les exemples précédents, nous avons utilisé les hooks <code class="language-js">useState()</code> et <code class="language-js">useEffect()</code>.</p>
+        <p><code class="language-js">useState()</code> nous permet de déclarer un state dans un composant tandis que <code class="language-js">useEffect()</code> nous permet d'effectuer des actions à chaque rendu du composant.</p>
+    </section>
+
+</section>

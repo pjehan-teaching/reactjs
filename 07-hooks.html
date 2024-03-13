@@ -1,0 +1,368 @@
+<section id="hooks">
+
+	<section>
+		<h2>React Hooks</h2>
+		<ol>
+			<li>
+				<a href="#/usestate">useState()</a>
+			</li>
+			<li>
+				<a href="#/useeffet">useEffect()</a>
+			</li>
+			<li>
+				<a href="#/usecontext">useContext()</a>
+			</li>
+			<li>
+				<a href="#/usereducer">useReducer</a>
+			</li>
+			<li>
+				<a href="#/other-hooks">Autres hooks</a>
+			</li>
+			<li>
+				<a href="#/custom-hooks">Custom Hooks</a>
+			</li>
+		</ol>
+	</section>
+
+	<section>
+		<h3>React Conf 2018</h3>
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/dpw9EHDh2bM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	</section>
+
+	<section>
+		<h3>Problématique</h3>
+		<ol>
+			<li>Ré-utilisation des composants complexe (Wrapping Hell)</li>
+			<li>"Gros" composants difficiles à maintenir (code réparti dans componentDidMount et componentWillUnmount par exemple)</li>
+			<li>Utilisation des classes pour utiliser le state et les lifecycles</li>
+		</ol>
+	</section>
+
+	<section>
+		<h3>Solution</h3>
+		<p>Afin de permettre la gestion du state et des lifecycles et simplifier l'organisation du code source, les développeurs de React ont introduit en 2018 le système de hooks.</p>
+		<blockquote>
+			<p>Hooks are functions that let you “hook into” React state and lifecycle features from function components.</p>
+		</blockquote>
+		<p>Les hooks ne <strong>remplacent pas</strong> l'ancienne syntaxe. Il est possible de créer dans une même application des composants sous forme de classes et d'autres sous forme de fonctions.</p>
+		<p>Cependant, il n'est pas possible d'utiliser des hooks dans des classes.</p>
+	</section>
+
+	<section>
+		<h3>Généralités</h3>
+		<p>Les hooks sont des <mark>fonctions</mark> qui permettent de "brancher" des fonctionnalités de React dans des composants fonctionnels.</p>
+		<p>Les hooks sont des fonctions qui commencent par <mark>use</mark> (useEffect, useState, useContext, ...).</p>
+		<p>Il est possible de <mark>créer ses propres hooks</mark>.</p>
+		<p>Un hook doit être <mark>appelé au plus haut niveau</mark> d'une fonction React. Le code ci-dessous ne fonctionnera pas :</p>
+<pre><code class="language-jsx">if (condition) {
+	useEffect(() => console.log('useEffect!'));
+}</code></pre>
+		<footer>
+			<a href="https://react.dev/warnings/invalid-hook-call-warning" class="info">Rules of Hooks</a>
+		</footer>
+	</section>
+
+	<section id="usestate" class="fullwidth">
+		<h3>useState</h3>
+		<p>Le hook <code class="language-javascript">useState()</code> permet de gérer le state local d'un composant dans une fonction.</p>
+		<article class="container">
+			<div class="col" style="overflow: auto">
+<pre class="line-numbers"><code class="language-jsx">import React, { Component } from "react";
+
+export default class Greeting extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { firstname: 'John' };
+    }
+
+	handleChange(event) {
+		this.setState({[event.target.name]: event.target.value});
+	}
+
+    render() {
+        return (
+			&lt;input name='firstname' value={this.state.firstname} onChange={event => this.handleChange(event)} /&gt;
+		)
+    }
+}</code></pre>
+			</div>
+			<div class="col" style="overflow: auto">
+<pre class="line-numbers" data-line="4"><code class="language-jsx">import React, { useState } from "react";
+
+export default function Greeting(props) {
+	const [firstname, setFirstname] = useState('John');
+
+	return (
+		&lt;input
+			value={firstname}
+			onChange={event => setFirstname(event.target.value)}
+		/&gt;
+	);
+}</code></pre>
+			</div>
+		</article>
+		<footer>
+			<a href="https://react.dev/reference/react/useState" target="_blank" class="info">useState()</a>
+		</footer>
+	</section>
+
+	<section>
+		<h3>useState - Immutable</h3>
+		<p>Le state ne doit <mark>jamais être modifié directement</mark>. Il est obligatoire de passer par la <mark>fonction de modification</mark> du state.</p>
+		<p>Il est possible de modifier le state plusieurs fois dans une fonction :</p>
+		<pre class="line-numbers"><code class="language-javascript">const [count, setCount] = useState(0);
+
+function increment() {
+	setCount(count + 1);
+	setCount(count + 1);
+}</code></pre>
+		<p>Cependant, la valeur de <code class="language-javascript">count</code> ne sera pas incrémentée de 2, mais de 1 car <code class="language-javascript">setCount()</code> est asynchrone.</p>
+		<p>Il est possible de passer une fonction à <code class="language-javascript">setCount()</code> pour obtenir le résultat attendu :</p>
+		<pre class="line-numbers"><code class="language-javascript">function increment() {
+	setCount(prevCount => prevCount + 1);
+	setCount(prevCount => prevCount + 1);
+}</code></pre>
+	</section>
+
+	<section>
+		<h3>useState - Objet</h3>
+		<p>Il est possible de modifier un objet dans le state en utilisant le spread operator :</p>
+		<pre class="line-numbers" data-line="4"><code class="language-javascript">const [form, setForm] = useState({ firstname: '', lastname: '' });
+
+function handleChange(event) {
+	setForm({ ...form, [event.target.name]: event.target.value });
+}</code></pre>
+		<p>Il est également possible de modifier un objet sans passer par une fonction en utilisant la librairie <a href="https://immerjs.github.io/immer/docs/introduction" target="_blank">Immer.js</a> :</p>
+<pre class="line-numbers" data-line="6"><code class="language-javascript">import { useImmer } from 'use-immer';
+
+const [form, setForm] = useImmer({ firstname: '', lastname: '' });
+
+function handleFirstnameChange(event) {
+	setForm(draft => {draft.firstname = event.target.value});
+}</code></pre>
+		<footer>
+			<a href="https://react.dev/learn/updating-objects-in-state" target="_blank" class="info">Updating Objects in State</a>
+		</footer>
+
+	</section>
+
+	<section>
+		<h3>useState - Tableau</h3>
+		<p>Il est possible de modifier un tableau dans le state en utilisant le spread operator :</p>
+		<pre class="line-numbers"><code class="language-javascript">const [items, setItems] = useState([]);
+
+function addItem() {
+	setItems([...items, 'item']);
+}</code></pre>
+		<p>Il est également possible de modifier un tableau sans passer par une fonction en utilisant la librairie <a href="https://immerjs.github.io/immer/docs/introduction" target="_blank">Immer.js</a>.</p>
+		<footer>
+			<a href="https://react.dev/learn/updating-arrays-in-state" target="_blank" class="info">Updating Arrays in State</a>
+		</footer>
+	</section>
+
+	<section id="useeffect">
+		<h3>useEffect()</h3>
+		<p>Le hook <code class="language-javascript">useEffect()</code> permet de synchroniser un composant avec un système externe (API, DOM, ...).</p>
+		<p>Il peut être utilisé pour...</p>
+		<ul>
+			<li>Charger des données en asynchrone</li>
+			<li>Mettre en place un timer</li>
+			<li>Se connecter à un websocket</li>
+			<li>...</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>useEffect()</h3>
+		<p>Le hook <code class="language-javascript">useEffect()</code> prend en paramètre une fonction ainsi qu'un tableau de dépendances.</p>
+		<p>La fonction est exécutée à chaque rendu du composant, sauf si les dépendances n'ont pas changé.</p>
+		<p>Dans l'exemple ci-dessous le code est exécuté à chaque modification de <code class="language-javascript">count</code> :</p>
+		<pre class="line-numbers"><code class="language-javascript">useEffect(() => {
+	document.title = `Vous avez cliqué ${count} fois`;
+}, [count]);</code></pre>
+		<p>Si le tableau de dépendances est vide, la fonction est exécutée une seule fois après le premier rendu du composant.</p>
+	</section>
+
+	<section>
+		<h3>useEffect() - Nettoyer un effet</h3>
+		<p>Il est possible de retourner une fonction dans <code class="language-javascript">useEffect()</code> pour <mark>nettoyer</mark> les effets :</p>
+		<pre class="line-numbers"><code class="language-javascript">useEffect(() => {
+	const timer = setInterval(() => console.log('useEffect!'), 1000);
+	return () => clearInterval(timer);
+}, []);</code></pre>
+		<p>La fonction retournée est exécutée avant chaque exécution de la fonction passée en premier paramètre ou lors de la destruction du composant.</p>
+		<p>Cela permet de nettoyer les effets (fermer une connexion, annuler un timer, ...).</p>
+		<footer>
+			<a href="https://www.zipy.ai/blog/understanding-react-useeffect-cleanup-function" class="info">Understanding React useEffect Cleanup Function</a>
+		</footer>
+	</section>
+
+	<section>
+		<h3>useEffect() - Fetch</h3>
+		<p>Une utilisation courante de <code class="language-javascript">useEffect()</code> est le chargement de données provenant d'une API :</p>
+		<pre class="line-numbers"><code class="language-javascript">import React, { useState, useEffect } from "react";
+
+export default function Greeting(props) {
+	const [data, setData] = useState(null);
+
+	useEffect(() => {
+		fetch('https://api.example.com/data')
+			.then(response => response.json())
+			.then(data => setData(data));
+	}, []);
+
+	return (
+		&lt;div&gt;
+			{data ? &lt;pre&gt;{JSON.stringify(data, null, 2)}&lt;/pre&gt; : 'Loading...'}
+		&lt;/div&gt;
+	);
+}</code></pre>
+		<p>Le code ci-dessus charge des données en asynchrone lors du premier rendu du composant.</p>
+	</section>
+
+	<section id="usecontext">
+		<h3>useContext()</h3>
+		<p>Le hook <code class="language-javascript">useContext()</code> permet de récupérer le contexte d'un composant parent.</p>
+		<p>Il est souvent utilisé pour récupérer des valeurs globales (thème, langue, ...).</p>
+		<p>Ce hook permet d'éviter le <mark>passage de props</mark> à travers plusieurs niveaux de composants.</p>
+		<figure>
+			<img src="assets/images/data-flow.gif" alt="Data Flow">
+			<figcaption>React Data Flow</figcaption>
+		</figure>
+	</section>
+
+	<section>
+		<h3>useContext()</h3>
+		<p>Le hook <code class="language-javascript">useContext()</code> prend en paramètre un contexte créé avec <code class="language-javascript">createContext()</code>.</p>
+		<p>Il retourne la valeur actuelle du contexte.</p>
+		<p>Il est possible de passer un contexte par défaut pour éviter les erreurs :</p>
+		<pre class="line-numbers"><code class="language-jsx">// ThemeContext.js
+import { createContext } from 'react';
+
+export const ThemeContext = createContext('light');</code></pre>
+		<pre class="line-numbers"><code class="language-jsx">// ThemedButton.js
+import { useContext } from 'react';
+import { ThemeContext } from './ThemeContext.js';
+
+function ThemedButton() {
+	const theme = useContext(ThemeContext);
+	return &lt;button className={theme} /&gt;;
+}</code></pre>
+	</section>
+
+	<section>
+		<h3>useContext()</h3>
+		<p>Il est ensuite possible de définir un context provider pour l'ensemble de l'application :</p>
+		<pre class="line-numbers"><code class="language-jsx">// App.js
+import { ThemeContext } from './ThemeContext.js';
+
+function App() {
+	return (
+		&lt;ThemeContext.Provider value="dark"&gt;
+			&lt;ThemedButton /&gt;
+		&lt;/ThemeContext.Provider&gt;
+	);
+}</code></pre>
+		<p>Le composant <code class="language-javascript">ThemedButton</code> récupère la valeur du contexte <code class="language-javascript">ThemeContext</code> sans passer par des props.</p>
+	</section>
+
+	<section id="usereducer">
+		<h3>useReducer()</h3>
+		<p>Un composant contenant un state complexe peut devenir difficile à maintenir.</p>
+		<p>Le hook <code class="language-jsx">useReducer()</code> permet d'extraire les mises à jour du state afin de séparer le composant des modifications du state.</p>
+	</section>
+
+	<section>
+		<h3>useReducer()</h3>
+		<p>Le hook <code class="language-javascript">useReducer()</code> prend en paramètre une <mark>fonction de réduction et un état initial</mark>.</p>
+		<pre><code class="language-jsx">const [persons, dispatch] = useReducer(personsReducer, initialPersons);</code></pre>
+		<p>Il retourne l'<mark>état actuel et une fonction de dispatch </mark>pour envoyer des actions à la fonction de réduction.</p>
+		<pre><code class="language-jsx">dispatch({ type: 'added', person: person });</code></pre>
+		<footer>
+			<a href="https://react.dev/learn/extracting-state-logic-into-a-reducer" target="_blank" class="info">Extracting State Logic into a Reducer</a>
+		</footer>
+	</section>
+
+	<section>
+		<h3>useReducer()</h3>
+		<p>La <mark>fonction de réduction</mark> prend en paramètre l'<mark>état actuel et une action</mark> et retourne le nouvel état.</p>
+		<pre><code class="language-javascript">export function personsReducer(state, action) {
+	switch (action.type) {
+		case 'added':
+			return [...state, action.person];
+		case 'removed':
+			return state.filter(person => person.id !== action.id);
+		default: {
+      		throw Error('Unknown action: ' + action.type);
+    	}
+	}
+}</code></pre>
+		<footer>
+			<a href="https://react.dev/learn/extracting-state-logic-into-a-reducer" target="_blank" class="info">Extracting State Logic into a Reducer</a>
+		</footer>
+	</section>
+
+	<section>
+		<h3>useReducer()</h3>
+		<p>Il est possible de combiner <code class="language-javascript">useReducer()</code> et <code class="language-javascript">useContext()</code> pour gérer l'état d'une application complexe.</p>
+		<p>Pour cela, il peut être pratique de créer un composant qui sera chargé de fournir les données et les actions :</p>
+		<pre><code class="language-jsx">export function PersonsProvider({ children }) {
+	const [persons, dispatch] = useReducer(personsReducer, initialPersons);
+
+	return (
+		&lt;PersonsContext.Provider value={persons}&gt;
+			&lt;PersonsDispatchContext.Provider value={dispatch}&gt;
+				{children}
+			&lt;/PersonsDispatchContext.Provider&gt;
+		&lt;/PersonsContext.Provider&gt;
+	);
+}</code></pre>
+		<p>Il faudra ensuite encapsuler l'application dans ce composant puis utiliser <code class="language-javascript">useContext()</code> pour récupérer les données et les actions.</p>
+		<footer>
+			<a href="https://react.dev/learn/scaling-up-with-reducer-and-context" target="_blank" class="info">Scaling Up with Reducer and Context</a>
+		</footer>
+	</section>
+
+	<section id="other-hooks">
+		<h3>Autres hooks</h3>
+		<p>Il existe d'autres hooks qui permettent de gérer des fonctionnalités spécifiques :</p>
+		<ul>
+			<li><code class="language-javascript">useCallback()</code> - Mémorise une fonction pour éviter les récréations inutiles</li>
+			<li><code class="language-javascript">useMemo()</code> - Mémorise une valeur calculée pour éviter les recalculs inutiles</li>
+			<li><code class="language-javascript">useRef()</code> - Crée une référence mutable</li>
+			<li><code class="language-javascript">useLayoutEffect()</code> - Synchronise le DOM avec le state</li>
+			<li><code class="language-javascript">useImperativeHandle()</code> - Personnalise la valeur renvoyée par <code class="language-javascript">ref</code></li>
+			<li><code class="language-javascript">useDebugValue()</code> - Affiche une étiquette pour les hooks personnalisés dans React DevTools</li>
+		</ul>
+		<footer>
+			<a href="https://react.dev/reference/react/hooks" class="info">React Hooks</a>
+		</footer>
+	</section>
+
+	<section id="custom-hooks">
+		<h3>Custom Hooks</h3>
+		<p>Il est possible d'étendre les capacités de React en créant ses propres hooks.</p>
+		<p>Par convention, le nom des customs hooks doit commencer par <code>use</code></p>
+	</section>
+
+	<section>
+		<h3>Customs Hooks</h3>
+		<pre class="line-numbers"><code class="language-javascript">function useFormInput(initialValue) {
+	const [value, setValue] = useState(initialValue);
+	return {
+		value: value,
+		onChange: event => setValue(event.target.value)
+	};
+}</code></pre>
+		<pre class="line-numbers" data-line="4,7"><code class="language-jsx">import React, { useState } from "react";
+
+export default function Greeting(props) {
+	const firstname = useFormInput('John');
+
+	return (
+		&lt;input {...firstname}/&gt;
+	);
+}</code></pre>
+	</section>
+
+</section>
