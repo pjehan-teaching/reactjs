@@ -81,6 +81,28 @@ function App() {
     </section>
 
     <section>
+        <h3>JSX - Fragment</h3>
+        <p>Un composant React ne peut retourner qu'un seul élément. Cet élément pouvant contenir plusieurs éléments enfants.</p>
+        <p>Il est cependant possible de retourner plusieurs éléments sans les encapsuler dans un élément parent en utilisant un <mark>Fragment</mark> :</p>
+<pre class="line-numbers"><code class="language-jsx">return (
+    &lt;React.Fragment&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;p&gt;Welcome to React&lt;/p&gt;
+    &lt;/React.Fragment&gt;
+)</code></pre>
+        <p>Il est également possible d'utiliser une syntaxe raccourcie :</p>
+<pre class="line-numbers"><code class="language-jsx">return (
+    &lt;&gt;
+        &lt;h1&gt;Hello, world!&lt;/h1&gt;
+        &lt;p&gt;Welcome to React&lt;/p&gt;
+    &lt;/&gt;
+)</code></pre>
+        <footer>
+            <a href="https://react.dev/reference/react/Fragment" target="_blank">Fragment</a>
+        </footer>
+    </section>
+
+    <section>
         <h3>JSX - JSX vs Plain JavaScript</h3>
         <p>Lors de la compilation, Babel convertit le code JSX en code JavaScript.</p>
         <p>Ainsi, les deux exemples ci-dessous produiront le même résultat :</p>
