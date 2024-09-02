@@ -64,6 +64,18 @@ let rainbow = ['green', 'blue', 'pink', ...colors]</code></pre>
     </section>
 
     <section>
+        <h3>Destructuring</h3>
+        <p>La destructuration permet de décomposer un objet ou un tableau en plusieurs variables.</p>
+        <pre><code class="language-js">let { lat, lng } = { lat: 48.112206, lng: -1.682941 }</code></pre>
+        <p>L'exemple ci-dessus est équivalent à :</p>
+        <pre><code class="language-js">let obj = { lat: 48.112206, lng: -1.682941 };
+let lat = obj.lat;
+let lng = obj.lng;</code></pre>
+        <p>Avec un tableau :</p>
+        <pre><code class="language-js">let [lat, lng] = [48.112206, -1.682941] // L'ordre est important</code></pre>
+    </section>
+
+    <section>
         <h3>Classes</h3>
         <p>Il est maintenant possible de déclarer des classes avec une syntaxe Orientée Objet.</p>
         <pre><code class="language-javascript">class Map {
