@@ -132,7 +132,7 @@ function increment() {
 function handleChange(event) {
 	setForm({ ...form, [event.target.name]: event.target.value });
 }</code></pre>
-		<p>Il est également possible de modifier un objet sans passer par une fonction en utilisant la librairie <a href="https://immerjs.github.io/immer/docs/introduction" target="_blank">Immer.js</a> :</p>
+		<p>Il est également possible de modifier un objet sans passer par une fonction en utilisant la librairie <a href="https://immerjs.github.io/immer/" target="_blank">Immer.js</a> :</p>
 <pre class="line-numbers" data-line="6"><code class="language-javascript">import { useImmer } from 'use-immer';
 
 const [form, setForm] = useImmer({ firstname: '', lastname: '' });
@@ -154,7 +154,7 @@ function handleFirstnameChange(event) {
 function addItem() {
 	setItems([...items, 'item']);
 }</code></pre>
-		<p>Il est également possible de modifier un tableau sans passer par une fonction en utilisant la librairie <a href="https://immerjs.github.io/immer/docs/introduction" target="_blank">Immer.js</a>.</p>
+		<p>Il est également possible de modifier un tableau sans passer par une fonction en utilisant la librairie <a href="https://immerjs.github.io/immer/" target="_blank">Immer.js</a>.</p>
 		<footer>
 			<a href="https://react.dev/learn/updating-arrays-in-state" target="_blank" class="info">Updating Arrays in State</a>
 		</footer>
